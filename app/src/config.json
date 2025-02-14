@@ -1,0 +1,24 @@
+{
+    "production": {
+        "api": {
+            "host": "http://localhost:8080",
+            "newsApi": "https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=458305250025469cb098265a6faa8215"
+        },
+        "auth": {
+            "client_id": "jbAx0g5COvSgJcSf6G0vwtqd8pYDR9Qf",
+            "google_oauth_client_id": "370145892419-hmb1seq0l74jcsiu26mjak13hg1vlr8p.apps.googleusercontent.com"
+        },
+        "keys": {}
+    },
+    "development": {
+        "api": {
+            "host": "http://localhost:8080",
+            "newsApi": "https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=458305250025469cb098265a6faa8215"
+        },
+        "auth": {
+            "client_id": "jbAx0g5COvSgJcSf6G0vwtqd8pYDR9Qf",
+            "google_oauth_client_id": "370145892419-hmb1seq0l74jcsiu26mjak13hg1vlr8p.apps.googleusercontent.com"
+        },
+        "keys": {}
+    }
+}

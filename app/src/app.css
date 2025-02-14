@@ -1,0 +1,461 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 3.9%;
+        --primary: 0 0% 9%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 89.8%;
+        --input: 0 0% 89.8%;
+        --ring: 0 0% 3.9%;
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+        --radius: 0.5rem;
+    }
+  .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 9%;
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 0 0% 83.1%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+    }
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    font-family: "Poppins", serif;
+    background-color: #eff5ff;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+.header {
+    padding: 0px 130px;
+    display: flex;
+    align-items: center;
+    height: 100px;
+
+    .logo {
+        height: 50px;
+        width: 50px;
+        background-image: url(/branding/favicon.png);
+        background-size: contain;
+        margin-right: 15px;
+        background-color: white;
+        border-radius: 50px;
+    }
+
+    .pagetitle {
+        h1 {
+            padding: 0;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        span {
+            font-size: 0.85rem;
+            color: #a5a5a5;
+            position: relative;
+            top: -3px;
+        }
+    }
+
+    .right {
+        margin-left: auto;
+
+        .user-btn {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50px;
+            transition-duration: 200ms;
+
+            > svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+        .user-btn:hover {
+            background-color: white;
+        }
+    }
+}
+
+@layer base {
+  :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 3.9%;
+        --primary: 0 0% 9%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 89.8%;
+        --input: 0 0% 89.8%;
+        --ring: 0 0% 3.9%;
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+        --radius: 0.5rem;
+    }
+  .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 9%;
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 0 0% 83.1%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+    }
+}
+
+.body {
+    padding: 20px 130px 100px;
+}
+
+.padded-box {
+    padding: 25px 30px;
+    border-radius: 20px;
+}
+
+.box {
+    padding: 25px 30px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 2px 15px #00000008;
+    position: relative;
+
+    .box-header {
+        display: flex;
+
+        h1 {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        svg {
+            margin-left: auto;
+            color: #8b8b8b;
+        }
+    }
+}
+
+.link {
+    display: inline-flex;
+    font-size: 0.9rem;
+    gap: 7px;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+        width: 0.9rem;
+    }
+}
+.link:hover {
+    text-decoration: underline;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 20px;
+    width: 40%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 60px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    z-index: 100;
+    background: #ffffff00;
+    color: black;
+    border: 1px solid #0000001c;
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+
+        span {
+            font-size: 0.9rem;
+            color: #000000b8;
+        }
+    }
+    .item.active {
+        svg {
+            color: #0047c4;
+        }
+        span {
+            color: #000062;
+        }
+    }
+}
+
+.home {
+    .profile-box {
+        .pfp {
+            margin: auto;
+            width: fit-content;
+            padding: 7px;
+            border-radius: 100px;
+            border: 4px solid #e2e2e2;
+            
+            div {
+                height: 95px;
+                width: 95px;
+                background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330);
+                background-size: cover;
+                background-position: center;
+                border-radius: 100px;
+            }
+        }
+
+        .info {
+            text-align: center;
+            padding: 15px 0px;
+
+            h1 {
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+
+            h2 {
+                font-size: 0.9rem;
+                color: #909090;
+            }
+        }
+
+        .badges {
+            display: flex;
+            justify-content: space-around;
+
+            .badge {
+                display: flex;
+                align-items: center;
+                font-size: 1rem;
+                gap: 4px;
+                background-color: #ededed;
+                border-radius: 50px;
+                height: 30px;
+                padding: 0px 10px;
+                font-size: 0.9rem;
+
+                svg {
+                    width: 0.9rem;
+                    color: #3b7fb7;
+                }
+            }
+        }
+    }
+
+    .stat-box {
+        .stats {
+            margin-top: 65px;
+
+            h1 {
+                font-size: 3rem;
+            }
+            h2 {
+                color: #00000094;
+            }
+        }
+    }
+
+    .platforms-box {
+        background-color: #0000000f;
+        display: flex;
+        
+        .labels {
+            h1 {
+                font-size: 1.2rem;
+            }
+            h2 {
+                font-size: 0.9rem;
+                color: #0000007d;
+            }
+        }
+
+        .right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .edit {
+                cursor: pointer;
+            }
+
+            .logos {
+                display: flex;
+                gap: 10px;
+
+                .icon {
+                    height: 40px;
+                    width: 40px;
+                    background-color: #ffffff;
+                    border-radius: 50px;
+                    box-shadow: 0px 1px 3px #0000001a;
+                    background-size: 24px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+    }
+
+    .languages-box {
+        .language {
+            margin-top: 20px;
+
+            .labels {
+                display: flex;
+                align-items: center;
+
+                h1 {
+                    font-size: 1.1rem;
+                }
+
+                h2 {
+                    margin-left: auto;
+                    font-size: 0.9rem;
+                    color: #4e4e4e;
+                }
+            }
+
+            .progressbar {
+                height: 7px;
+                width: 100%;
+                background-color: #e4e4e4;
+                border-radius: 10px;
+                overflow: hidden;
+                margin-top: 5px;
+
+                .progress {
+                    height: 100%;
+                    background-color: #008eff;
+                }
+            }
+        }
+    }
+
+    .tasks-box {
+        .list {
+            margin-top: 20px;
+
+            .item {
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-bottom: 1px solid #e7e7e7;
+                padding-bottom: 10px;
+                cursor: pointer;
+    
+                .content {
+                    .due {
+                        font-size: 0.85rem;
+                        color: #787878;
+                    }
+                }
+            }
+            .item:last-child {
+                border-bottom: 0;
+                margin-bottom: 0;
+            }
+            .item:hover .content h1 {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .chart-box {
+        border: 2px solid #00000012;
+
+        .title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #0000007d;
+        }
+    }
+}

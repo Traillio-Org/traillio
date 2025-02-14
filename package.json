@@ -1,0 +1,28 @@
+{
+  "name": "traillio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "npm run --prefix app dev",
+    "build": "npm run --prefix app build",
+    "db": "node scripts/start_db.js",
+    "db_init": "node scripts/init_db.js",
+    "api": "npx nodemon api/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Traillio/traillio.git"
+  },
+  "author": "Team Traillio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Traillio/traillio/issues"
+  },
+  "homepage": "https://github.com/Team-Traillio/traillio#readme",
+  "dependencies": {
+    "@visx/heatmap": "^3.12.0",
+    "@visx/scale": "^3.12.0"
+  }
+}
