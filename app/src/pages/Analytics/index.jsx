@@ -88,7 +88,10 @@ export default function Analytics() {
                 },
                 dataLabels: {
                   enabled: true,
-                  formatter: (val) => `${val}%`
+                  formatter: (val) => `${val}%`,
+                  style: {
+                    colors: ["#f5f5f5"]
+                  }
                 },
                 plotOptions: {
                   pie: {

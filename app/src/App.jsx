@@ -25,6 +25,7 @@ import OurTeam from "./pages/Landing/sections/team";
 import AboutPage from "./pages/Landing/sections/about";
 import Layout from "./pages/Landing/layout";
 import Analytics from "./pages/Analytics";
+import CompetitiveProgrammingLeaderboard from "./pages/LeaderBoard";
 
 function App() {
   return (
@@ -125,6 +126,7 @@ function App() {
           <Route path="features" element={<Features />} />
           <Route path="team" element={<OurTeam />} />
           <Route path="about" element={<AboutPage />} />
+          <Route path="leaderboard" element={<CompetitiveProgrammingLeaderboard/>}/>
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

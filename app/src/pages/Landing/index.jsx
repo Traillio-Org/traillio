@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Menu, ChevronDown } from "lucide-react";
+import { ArrowRight, Sparkles, Menu, ChevronDown, Star, Zap } from "lucide-react";
 import Navbar from "./components/navbar";
 
 const LandingPage = () => {
@@ -11,9 +10,29 @@ const LandingPage = () => {
       <main className="pt-16 w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
         {/* Enhanced Background Effects */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-6xl max-h-6xl">
-          <div className="absolute inset-0 bg-blue-200/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute inset-0 bg-blue-200/30 rounded-full blur-3xl animate-pulse"><Star/></div>
           <div className="absolute inset-0 bg-purple-200/30 rounded-full blur-3xl transform translate-x-32 animate-pulse delay-700"></div>
           <div className="absolute inset-0 bg-pink-200/20 rounded-full blur-3xl transform -translate-x-32 animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(35)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute animate-float-random"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`
+              }}
+            >
+              {i % 2 === 0 ? (
+                <Star className="w-6 h-6 text-blue-200" />
+              ) : (
+                <Zap className="w-6 h-6 text-purple-200" />
+              )}
+            </div>
+          ))}
         </div>
 
         {/* Decorative Elements */}
@@ -69,11 +88,6 @@ const LandingPage = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </button>
             </Link>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-6 h-6 text-gray-400" />
           </div>
         </div>
       </main>
