@@ -612,13 +612,14 @@ html, body {
     .chat-box {
         .message {
             width: fit-content;
-            padding: 7px 17px;
+            padding: 12px 19px;
             background-color: #0000000f;
-            border-radius: 50px;
+            border-radius: 25px;
             max-width: 50%;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-bottom: 20px;
+            font-size: 0.95rem;
         }
         .message.right {
             margin-left: auto;

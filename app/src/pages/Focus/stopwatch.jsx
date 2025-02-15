@@ -17,9 +17,6 @@ const Stopwatch = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [bg_idx, setBgIdx] = useState(Math.floor(Math.floor(Math.random() * 8)));
 
-  // 1 2 5 7
-  // 6
-
   useEffect(() => {
     let interval;
     if (isRunning) {
@@ -44,13 +41,13 @@ const Stopwatch = () => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center gap-4 p-4 rounded-xl shadow-md h-full bg-cover bg-center bg-no-repeat`}
+      className={`w-full flex flex-col items-center justify-center gap-4 p-4 rounded-xl shadow-md h-full bg-cover bg-center bg-no-repeat`}
       style={{
         backgroundImage: `url(${imagePaths[bg_idx]})`,
       }}
     >
       <div className="flex flex-col justify-center items-center backdrop-blur-[10px] p-4 rounded-2xl">
-        <h1 className="text-3xl font-mono">{formatTime(time)}</h1>
+        <h1 className="text-6xl font-mono">{formatTime(time)}</h1>
         <div className="flex justify-center items-center gap-2">
           {!isRunning ? (
             <button

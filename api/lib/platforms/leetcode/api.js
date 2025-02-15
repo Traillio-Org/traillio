@@ -4,10 +4,50 @@
 
 const config = require('../../../config.json');
 const axios = require('axios');
+const {Window} = require('happy-dom');
 
 const API_URL = `http://localhost:${config.api.leetcodeApiPort}`;
 
 module.exports = {
+
+    /**
+     * Get problem statement from a given Leetcode URL.
+    */
+    async getProblemStatement(url) {
+        // Check if input is a string and not empty
+        if (typeof url !== 'string' || !url.trim()) {
+            throw new Error('Input must be a non-empty string');
+        }
+    
+        // Parse the URL
+        const urlObject = new URL(url);
+    
+        // Validate domain
+        const validDomains = ['leetcode.com', 'www.leetcode.com'];
+        if (!validDomains.includes(urlObject.hostname)) {
+            throw new Error('Invalid domain. URL must be from leetcode.com');
+        }
+    
+        // Validate URL path structure
+        const pathSegments = urlObject.pathname.split('/').filter(segment => segment);
+    
+        if (pathSegments[0] !== 'problems') {
+            throw new Error('URL must start with /problems/');
+        }
+    
+        // Validate problem name
+        const problemName = pathSegments[1];
+        if (!problemName || !/^[a-zA-Z0-9-]+$/.test(problemName)) {
+            throw new Error('Invalid problem name format');
+        }
+
+        // Fetch the problem statement
+        const response = await axios.get(API_URL + `/select?titleSlug=${problemName}`);
+
+        if ("errors" in response.data) throw new Error(JSON.stringify(response.data.errors));
+
+        return response.data;
+    },
 
     /*
      * Fetch basic profile from a given username

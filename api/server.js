@@ -31,6 +31,8 @@ class APIServer {
             // console.log(await codeforces.database.syncUserSubmissions('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'Fefer_Ivan'));
         });
 
+        // console.log(await leetcode.api.getProblemStatement('https://leetcode.com/problems/two-sum/'));
+
         // Setup routes
         apiRoutes.setup(this.api);
 

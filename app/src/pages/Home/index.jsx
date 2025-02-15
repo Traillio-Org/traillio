@@ -9,8 +9,6 @@ import { useAuth } from "@/lib/Auth";
 export default function() {
     const { currentUser } = useAuth();
 
-    console.log(currentUser);
-
     return (
         <>
         <Header title={`Welcome, ${currentUser.fullName.split(" ")[0]}`} subtitle="Your personal growth system" />

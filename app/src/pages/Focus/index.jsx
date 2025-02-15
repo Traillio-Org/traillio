@@ -5,7 +5,7 @@ import AiPrompt from "@/components/AiPrompt"
 export default function Focus(){
     return (
         <>
-        <Header title={"Focus"} subtitle={"Something subtitle"}/>
+        <Header title={"Focus"} subtitle={"Calm your mind and get productive"}/>
         <div className="body focus">
             <Stopwatch />
         </div>
