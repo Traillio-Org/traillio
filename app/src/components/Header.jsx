@@ -7,7 +7,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/Auth";
 import { replace } from "react-router-dom";
 
@@ -30,7 +30,7 @@ export default function({ title, subtitle }) {
                     </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="dropdown-content">
-                        <Link to="/settings"><DropdownMenuItem>Settings</DropdownMenuItem></Link>
+                        <Link to="/dashboard/settings"><DropdownMenuItem>Settings</DropdownMenuItem></Link>
                         <DropdownMenuItem onClick={() => {logout(); replace('/auth');}}>Log Out</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

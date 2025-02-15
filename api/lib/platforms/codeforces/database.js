@@ -2,6 +2,7 @@
  * Database operations for Codeforces platform.
 */
 
+const { StringRecordId } = require('surrealdb');
 const config = require('../../../config.json');
 const db = require('../../../db').db;
 const logger = require('../../../util').logger;
@@ -27,6 +28,54 @@ module.exports = {
                 performance = null;
             };`
         );
+    },
+
+    async syncUser(id, username, limit = null) {
+        await this.syncUserSubmissions(id, username, limit);
+
+        // Get user's profile
+        const profile = await api.getProfile(username);
+
+        // Get user's submissions
+        const submissions = await api.getSubmissions(username, "OK", limit);
+
+        // Find languages used and count each
+        let accepted = submissions.length;
+        let langs = {};
+
+        submissions.forEach(submission => {
+            if (submission.programmingLanguage in langs) {
+                langs[submission.programmingLanguage]++;
+            } else {
+                langs[submission.programmingLanguage] = 1;
+            }
+        });
+
+        // Update user's stats in database
+        let update = {
+            stats: {
+                codeforces: {
+                    // rating: profile.rating,
+                    // max_rating: profile.maxRating,
+                    // rank: profile.rank,
+                    // max_rank: profile.maxRank,
+                    langs: Object.keys(langs).map(lang => {return {
+                        name: lang,
+                        count: langs[lang]
+                    }}),
+                    total_solved: accepted
+                }
+            }
+        };
+
+        try {
+            await db.query(`UPDATE $id MERGE $obj;`, {
+                id: new StringRecordId(id),
+                obj: update
+            });
+        } catch (e) {
+            throw e;
+        }
     },
 
     /**

@@ -4,7 +4,6 @@
 
 const config = require('../../../config.json');
 const axios = require('axios');
-const {Window} = require('happy-dom');
 
 const API_URL = `http://localhost:${config.api.leetcodeApiPort}`;
 
@@ -49,11 +48,22 @@ module.exports = {
         return response.data;
     },
 
+    /**
+     * Fetch language stats for a given user.
+    */
+    async getLanguageStats(username) {
+        const response = await axios.get(API_URL + `/languageStats?username=${username}`);
+
+        if ("errors" in response.data) throw new Error(JSON.stringify(response.data.errors));
+
+        return response.data.matchedUser.languageProblemCount;
+    },
+
     /*
      * Fetch basic profile from a given username
     */
     async getProfile(username) {
-        const response = await axios.get(API_URL + `/${username}`);
+        const response = await axios.get(API_URL + `/userProfile/${username}`);
 
         if ("errors" in response.data) throw new Error(JSON.stringify(response.data.errors));
 

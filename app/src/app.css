@@ -400,7 +400,7 @@ body {
         align-items: center;
 
         h1 {
-          font-size: 1.1rem;
+          font-size: 0.9rem;
         }
 
         h2 {
@@ -615,14 +615,15 @@ body {
 
   .chat-box {
     .message {
-      width: fit-content;
-      padding: 7px 17px;
-      background-color: #0000000f;
-      border-radius: 50px;
-      max-width: 50%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-bottom: 20px;
+        width: fit-content;
+        padding: 12px 18px;
+        background-color: #0000000f;
+        border-radius: 25px;
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
     }
     .message.right {
       margin-left: auto;
@@ -694,4 +695,26 @@ body {
   .color-scale-4 {
     fill: #0a390d;
   }
+}
+
+.body.problems .cp-box {
+    h1.title {
+        font-weight: 500;
+        font-size: 2.1rem;
+    }
+
+    .ratings-tags {
+        .tag {
+            border-radius: 50px;
+            color: black;
+            background-color: #0000000f;
+            padding: 4px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .tag.active {
+            background-color: black;
+            color: white;
+        }
+    }
 }

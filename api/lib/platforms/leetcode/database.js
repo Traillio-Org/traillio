@@ -2,6 +2,7 @@
  * Database operations for Leetcode platform.
 */
 
+const { StringRecordId } = require('surrealdb');
 const config = require('../../../config.json');
 const db = require('../../../db').db;
 const logger = require('../../../util').logger;
@@ -20,6 +21,36 @@ module.exports = {
                 language = null;
             };`
         );
+    },
+
+    async syncUser(id, username) {
+        await this.syncUserSubmissions(id, username);
+
+        // Get user's language stats
+        const languageStats = await api.getLanguageStats(username);
+        const profile = await api.getProfile(username);
+
+        // Update user's stats in database
+        let update = {
+            stats: {
+                leetcode: {
+                    langs: languageStats.map(lang => {return {
+                        name: lang.languageName,
+                        count: lang.problemsSolved
+                    }}),
+                    total_solved: profile.totalSolved
+                }
+            }
+        };
+
+        try {
+            await db.query(`UPDATE $id MERGE $obj;`, {
+                id: new StringRecordId(id),
+                obj: update
+            });
+        } catch (e) {
+            throw e;
+        }
     },
 
     /*

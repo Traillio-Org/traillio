@@ -607,6 +607,41 @@ const API = {
         },
 
         /**
+         * Update profile
+        */
+        updateProfile: async (id, obj) => {
+            let updateOp;
+            try {
+                updateOp = await db.query(`UPDATE $id MERGE $obj;`, {
+                    id: new StringRecordId(id),
+                    obj: obj
+                });
+            } catch(e) {
+                console.error(e);
+                throw new Errors.InternalServerError();
+            }
+
+            return updateOp[0][0];
+        },
+
+        /**
+         * Fetch profile
+        */
+        fetchProfile: async (id) => {
+            let fetchOp;
+            try {
+                fetchOp = await db.query(`SELECT * FROM $id;`, {
+                    id: new StringRecordId(id),
+                });
+            } catch(e) {
+                console.error(e);
+                throw new Errors.InternalServerError();
+            }
+
+            return fetchOp[0][0];
+        },
+
+        /**
          * Creates a new account
          * @async
          * @param {string} data.idToken - GIS ID token
@@ -656,7 +691,12 @@ const API = {
                     full_name: userData.name,
                     email: userData.email,
                     pfp: userData.pfp,
-                    joinedAt: Math.floor((new Date()).getTime() / 1000)
+                    joinedAt: Math.floor((new Date()).getTime() / 1000),
+                    profile: {
+                        bio: null,
+                        sleep_hrs_per_day: null,
+                        cgpa: null
+                    }
                 });
 
                 logger.log(`New Account created: ${userData.name} [ID: ${id}]`);

@@ -5,9 +5,29 @@ import NavBar from "@/components/NavBar";
 import AiPrompt from "@/components/AiPrompt";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/Auth";
+import { fetchProfile } from "@/lib/Data";
+import { useEffect, useState } from "react";
 
 export default function() {
     const {currentUser} = useAuth();
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        fetchProfile().then((data) => {
+            let platforms = 0;
+
+            if (data.platforms.codeforces && data.platforms.codeforces != "") platforms++;
+            if (data.platforms.leetcode && data.platforms.leetcode != "") platforms++;
+            
+            setProfile({
+                total: data.stats.codeforces.total_solved + data.stats.leetcode.total_solved,
+                leetcodeLangs: data.stats.leetcode.langs,
+                codeforcesLangs: data.stats.codeforces.langs,
+                streak: data.stats.dailyStreak,
+                platforms: platforms
+            });
+        });
+    }, []);
 
     return (
         <>
@@ -53,24 +73,28 @@ export default function() {
                             </div>
 
                             <div className="content">
-                                <div className="language">
-                                    <div className="labels">
-                                        <h1>C++</h1>
-                                        <h2>92%</h2>
-                                    </div>
-                                    <div className="progressbar">
-                                        <div className="progress" style={{width: "92%"}}></div>
-                                    </div>
-                                </div>
-                                <div className="language">
-                                    <div className="labels">
-                                        <h1>Javascript</h1>
-                                        <h2>50%</h2>
-                                    </div>
-                                    <div className="progressbar">
-                                        <div className="progress" style={{width: "50%"}}></div>
-                                    </div>
-                                </div>
+                                {profile && profile.leetcodeLangs.map(lang => (
+                                    <div className="language">
+                                        <div className="labels">
+                                            <h1>{lang.name}</h1>
+                                            <h2>{Math.trunc((lang.count / profile.total) * 100)}%</h2>
+                                        </div>
+                                        <div className="progressbar">
+                                            <div className="progress" style={{width: `${(lang.count / profile.total) * 100}%`}}></div>
+                                        </div>
+                                    </div>   
+                                ))}
+                                {profile && profile.codeforcesLangs.map(lang => (
+                                    <div className="language">
+                                        <div className="labels">
+                                            <h1>{lang.name}</h1>
+                                            <h2>{Math.trunc((lang.count / profile.total) * 100)}%</h2>
+                                        </div>
+                                        <div className="progressbar">
+                                            <div className="progress" style={{width: `${(lang.count / profile.total) * 100}%`}}></div>
+                                        </div>
+                                    </div>   
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -99,8 +123,8 @@ export default function() {
                                         <Clock />
                                     </div>
                                     <div className="stats">
-                                        <h1>93</h1>
-                                        <h2>Total points earned</h2>
+                                        <h1>{profile ? profile.streak : null}</h1>
+                                        <h2>Consecutive days</h2>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +133,7 @@ export default function() {
                             <div className="padded-box platforms-box">
                                 <div className="labels">
                                     <h1>Connected Platforms</h1>
-                                    <h2>2 active connections</h2>
+                                    <h2>{profile ? profile.platforms : 0} active connections</h2>
                                 </div>
                                 <div className="right">
                                     <div className="logos">
@@ -120,7 +144,7 @@ export default function() {
                                             backgroundImage: "url(/codeforces.webp)"
                                         }}></div>
                                     </div>
-                                    <Link to="/settings/platforms">
+                                    <Link to="/dashboard/settings/platforms">
                                         <div className="edit">
                                             <Ellipsis />
                                         </div>

@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 export default function() {
     return (
         <div class="navbar">
-            <NavLink to="/dashboard" className="item">
+            <NavLink to="/dashboard/home" className="item">
                 <Home />
                 <span>Home</span>
             </NavLink>
@@ -14,7 +14,7 @@ export default function() {
             </NavLink>
             <NavLink to="/dashboard/courses" className="item">
                 <LibraryBig />
-                <span>Courses</span>
+                <span>Problems</span>
             </NavLink>
             <NavLink to="/dashboard/focus" className="item">
                 <Crosshair />
