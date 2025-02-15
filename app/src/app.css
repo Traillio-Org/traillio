@@ -289,7 +289,6 @@ html, body {
             div {
                 height: 95px;
                 width: 95px;
-                background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330);
                 background-size: cover;
                 background-position: center;
                 border-radius: 100px;
@@ -662,4 +661,9 @@ html, body {
             cursor: pointer;
         }
     }
+}
+
+.dropdown-content {
+    border: 1px solid #00000026;
+    background-color: white;
 }

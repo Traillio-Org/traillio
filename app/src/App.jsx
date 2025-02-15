@@ -15,15 +15,15 @@ function App() {
   return (
       <Router>
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/focus" element={<Focus/>}/>
-            <Route path="/settings" element={<Settings />}>
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/focus" element={<ProtectedRoute><Focus/></ProtectedRoute>}/>
+            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}>
                 <Route index element={<Navigate to="general" replace={true} />} />
-                <Route path="general" element={<GeneralPage />} />
-                <Route path="platforms" element={<PlatformsPage />} />
+                <Route path="general" element={<ProtectedRoute><GeneralPage /></ProtectedRoute>} />
+                <Route path="platforms" element={<ProtectedRoute><PlatformsPage /></ProtectedRoute>} />
             </Route>
-            <Route path="/trio/:url" element={<Trio />} />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/trio/:url" element={<ProtectedRoute><Trio /></ProtectedRoute>} />
+            <Route path="auth" element={<GoogleOAuthProvider clientId={config.auth.google_oauth_client_id}><Auth /></GoogleOAuthProvider>} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     </Router>

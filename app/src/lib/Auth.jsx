@@ -43,6 +43,44 @@ export const setTokens = (value) => {
     }
 };
 
+export const refreshTokens = async () => {
+    const tokens = getTokens();
+
+    // Check if there are tokens
+    if (tokens === null) {
+        throw new Errors.UserUnauthenticatedError("User is not logged in.");
+    }
+
+    try {
+        const response = await request(config.api.host + '/auth/refresh_tokens', {
+            method: 'post',
+            json: {
+                refresh_token: tokens.refreshToken
+            }
+        });
+        const newTokens = await response.json();
+
+        console.log(`[auth] Tokens refreshed`);
+
+        // Save tokens locally
+        setTokens({
+            accessToken: newTokens.accessToken,
+            refreshToken: newTokens.refreshToken
+        });
+
+        return {
+            accessToken: newTokens.accessToken,
+            refreshToken: newTokens.refreshToken
+        };
+    } catch (e) {
+        if (e instanceof Errors.HttpError && e.status === 401) {
+            console.log(`[auth] Access token OR refresh token is invalid, throwing error.`);
+            throw new Errors.UserUnauthenticatedError("Invalid auth credentials, please login again.");
+        }
+        throw e;
+    }
+};
+
 // Provider component
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
@@ -128,44 +166,6 @@ export const AuthProvider = ({ children }) => {
         return user;
     }, [currentUser]);
 
-    const refreshTokens = useCallback(async () => {
-        const tokens = getTokens();
-
-        // Check if there are tokens
-        if (tokens === null) {
-            throw new Errors.UserUnauthenticatedError("User is not logged in.");
-        }
-
-        try {
-            const response = await request(config.api.host + '/auth/refresh_tokens', {
-                method: 'post',
-                json: {
-                    refresh_token: tokens.refreshToken
-                }
-            });
-            const newTokens = await response.json();
-
-            console.log(`[auth] Tokens refreshed`);
-
-            // Save tokens locally
-            setTokens({
-                accessToken: newTokens.accessToken,
-                refreshToken: newTokens.refreshToken
-            });
-
-            return {
-                accessToken: newTokens.accessToken,
-                refreshToken: newTokens.refreshToken
-            };
-        } catch (e) {
-            if (e instanceof Errors.HttpError && e.status === 401) {
-                console.log(`[auth] Access token OR refresh token is invalid, throwing error.`);
-                throw new Errors.UserUnauthenticatedError("Invalid auth credentials, please login again.");
-            }
-            throw e;
-        }
-    }, []);
-
     const logout = useCallback(async () => {
         const tokens = getTokens();
 
@@ -195,7 +195,6 @@ export const AuthProvider = ({ children }) => {
         login,
         signInOrCreateAccount,
         fetchUser,
-        refreshTokens,
         logout
     };
 

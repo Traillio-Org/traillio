@@ -4,11 +4,16 @@ import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
 import AiPrompt from "@/components/AiPrompt";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/lib/Auth";
 
 export default function() {
+    const { currentUser } = useAuth();
+
+    console.log(currentUser);
+
     return (
         <>
-        <Header title="Welcome, Sayan" subtitle="Your personal DSA tracker" />
+        <Header title={`Welcome, ${currentUser.fullName.split(" ")[0]}`} subtitle="Your personal growth system" />
 
         <div className="body home">
             <div className="flex gap-8">
@@ -20,9 +25,11 @@ export default function() {
                                 <User />
                             </div>
 
-                            <div className="pfp my-16"><div></div></div>
+                            <div className="pfp my-16"><div style={{
+                                backgroundImage: `url(${currentUser.pfp})`
+                            }}></div></div>
                             <div className="info">
-                                <h1>Sayan J. Das</h1>
+                                <h1>{currentUser.fullName}</h1>
                                 <h2>Explorer</h2>
                             </div>
                             <div className="badges">
