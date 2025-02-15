@@ -459,3 +459,8 @@ html, body {
         }
     }
 }
+
+.focus {
+    height: calc(100vh - 100px);
+    place-items: center;
+}
