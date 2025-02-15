@@ -10,7 +10,7 @@ import config from "./config";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Focus from "./pages/Focus";
-import CoursePage from "./pages/Courses";
+// import CoursePage from "./pages/Courses";
 import CP from "./pages/CPSheets";
 import Settings from "./pages/Settings";
 import GeneralPage from "./pages/Settings/General";
@@ -32,77 +32,71 @@ function App() {
     <Router>
       <Routes>
         <Route path="/dashboard">
+          <Route index element={<Navigate to="/dashboard/home" />} />
           <Route
-            index
+            path="home"
             element={
-              <>
+              <ProtectedRoute>
                 <Home />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="focus"
             element={
-              <>
+              <ProtectedRoute>
                 <Focus />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="courses"
             element={
-              <>
-                <CoursePage />
-              </>
-            }
-          />
-          <Route
-            path="courses/cp31"
-            element={
-              <>
+              <ProtectedRoute>
                 <CP />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="settings"
             element={
-              <>
+              <ProtectedRoute>
                 <Settings />
-              </>
+              </ProtectedRoute>
             }
           >
+            <Route index element={<Navigate to="general" />} />
             <Route
               path="general"
               element={
-                <>
+                <ProtectedRoute>
                   <GeneralPage />
-                </>
+                </ProtectedRoute>
               }
             />
             <Route
               path="platforms"
               element={
-                <>
+                <ProtectedRoute>
                   <PlatformsPage />
-                </>
+                </ProtectedRoute>
               }
             />
           </Route>
           <Route
             path="analytics"
             element={
-              <>
+              <ProtectedRoute>
                 <Analytics />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="trio/:url"
             element={
-              <>
+              <ProtectedRoute>
                 <Trio />
-              </>
+              </ProtectedRoute>
             }
           />
 

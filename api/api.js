@@ -48,7 +48,7 @@ const GAI_GENERATION_CONFIG = {
 
 // Initialize generative models
 const trioModel = genAI.getGenerativeModel({
-    model: "gemini-2.0-pro-exp-02-05",
+    model: "gemini-2.0-flash",
     systemInstruction: Prompts.TRIO,
     generationConfig: GAI_GENERATION_CONFIG
 });
@@ -69,44 +69,54 @@ const API = {
      * LLM related API
     */
     llm: {
-
         /**
-         * Queries the Gemini API
-        */
-        query: async (type, input, schema = null, retry = 0) => {
+         * Queries the Gemini API with chat history support
+         */
+        query: async (type, input, history = [], schema = null, retry = 0) => {
             // Don't exceed more than 3 retries
             if (retry >= 3) {
                 throw new Errors.BadRequestError("This LLM query cannot be processed");
             }
-
+    
             let response;
             try {
                 let result;
-                if (type === 'TRIO') result = await trioModel.generateContent(input);
-
+                if (type === 'TRIO') {
+                    // Create a chat instance
+                    const chat = trioModel.startChat({
+                        history: history.map(msg => ({
+                            role: msg.role,
+                            parts: [{ text: msg.content }], 
+                        }))
+                    });
+    
+                    // Send the current message
+                    result = await chat.sendMessage(input);
+                }
+    
                 response = result.response.text();
             } catch (e) {
                 console.error(e);
                 throw new Errors.InternalServerError("An error occurred while fetching LLM response");
             }
-
+    
             if (response) {
                 const json = JSON.parse(response);
-
-                // Check if LLM returned an error.
+    
+                // Check if LLM returned an error
                 if ('error' in json) {
                     throw new Errors.BadRequestError("Invalid input! Please provide accurate and detailed information.");
                 }
-
+    
                 // Validate response schema
                 if (schema) {
                     const isValid = await schema.isValid(json);
-
+    
                     if (isValid === false) {
                         console.error('Invalid schema returned from LLM API');
                         
-                        // Try again
-                        return await API.llm.query(type, input, schema, retry + 1);
+                        // Try again with the same history
+                        return await API.llm.query(type, input, history, schema, retry + 1);
                     } else {
                         return json;
                     }
@@ -115,21 +125,22 @@ const API = {
                 throw new Errors.InternalServerError("LLM response was empty");
             }
         },
-
+    
         /**
-         * Create a Trio response.
-        */
-        trioRespond: async (input) => {
+         * Create a Trio response with chat history support.
+         * @param {Object} input - The current input message
+         * @param {Array} history - Array of previous messages in the format [{role: 'user|system', content: string}]
+         */
+        trioRespond: async (input, history = []) => {
             const schema = yup.object().shape({
                 message: yup.string().required(),
-                assistantCode: yup.string().optional(),
-                originalCode: yup.string().optional(),
-                algorithm: yup.string().optional(),
+                assistantCode: yup.string().nullable(),
+                originalCode: yup.string().nullable(),
+                algorithm: yup.string().nullable(),
             });
-
-            return API.llm.query(Prompts.TRIO, input, schema);
+    
+            return await API.llm.query('TRIO', input, history, schema);
         },
-
     },
 
     /**
@@ -596,6 +607,41 @@ const API = {
         },
 
         /**
+         * Update profile
+        */
+        updateProfile: async (id, obj) => {
+            let updateOp;
+            try {
+                updateOp = await db.query(`UPDATE $id MERGE $obj;`, {
+                    id: new StringRecordId(id),
+                    obj: obj
+                });
+            } catch(e) {
+                console.error(e);
+                throw new Errors.InternalServerError();
+            }
+
+            return updateOp[0][0];
+        },
+
+        /**
+         * Fetch profile
+        */
+        fetchProfile: async (id) => {
+            let fetchOp;
+            try {
+                fetchOp = await db.query(`SELECT * FROM $id;`, {
+                    id: new StringRecordId(id),
+                });
+            } catch(e) {
+                console.error(e);
+                throw new Errors.InternalServerError();
+            }
+
+            return fetchOp[0][0];
+        },
+
+        /**
          * Creates a new account
          * @async
          * @param {string} data.idToken - GIS ID token
@@ -645,7 +691,12 @@ const API = {
                     full_name: userData.name,
                     email: userData.email,
                     pfp: userData.pfp,
-                    joinedAt: Math.floor((new Date()).getTime() / 1000)
+                    joinedAt: Math.floor((new Date()).getTime() / 1000),
+                    profile: {
+                        bio: null,
+                        sleep_hrs_per_day: null,
+                        cgpa: null
+                    }
                 });
 
                 logger.log(`New Account created: ${userData.name} [ID: ${id}]`);

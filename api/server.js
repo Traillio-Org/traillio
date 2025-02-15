@@ -28,7 +28,8 @@ class APIServer {
         leetcodeAPI.listen(config.api.leetcodeApiPort, async () => {
             console.log(`Leetcode API server running on Port ${config.api.leetcodeApiPort}`);
 
-            // console.log(await codeforces.database.syncUserSubmissions('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'Fefer_Ivan'));
+            // console.log(await codeforces.database.syncUser('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'sarafarajnasardi'));
+            // console.log(await leetcode.database.syncUser('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'Sarafaraj'));
         });
 
         // Setup routes
