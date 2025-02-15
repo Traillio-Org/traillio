@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
 import { Outlet, NavLink } from "react-router-dom";
 import GeneralPage from "./General";
+import AiPrompt from "@/components/AiPrompt";
 
 export default function() {
     return (
@@ -32,6 +33,7 @@ export default function() {
         </div>
 
         <NavBar />
+        <AiPrompt />
         </>
     );
 }

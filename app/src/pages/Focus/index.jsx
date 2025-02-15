@@ -1,6 +1,7 @@
 import Header from "@/components/Header"
 import NavBar from "@/components/NavBar"
 import Stopwatch from "./stopwatch"
+import AiPrompt from "@/components/AiPrompt"
 export default function Focus(){
     return (
         <>
@@ -9,6 +10,7 @@ export default function Focus(){
             <Stopwatch />
         </div>
         <NavBar />
+        <AiPrompt />
         </>
     )
 }

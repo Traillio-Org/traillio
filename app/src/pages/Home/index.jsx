@@ -2,6 +2,7 @@ import {User, Users, Clock, Flame, Calendar, Ellipsis, Code, ArrowUpRight, Arrow
 import WeekChart from './chart';
 import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
+import AiPrompt from "@/components/AiPrompt";
 import { Link } from "react-router-dom";
 
 export default function() {
@@ -168,9 +169,7 @@ export default function() {
         </div>
 
         <NavBar />
-
-        <div class="ai-box"></div>
-
+        <AiPrompt />
         </>
     );
 }

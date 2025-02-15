@@ -8,6 +8,7 @@ import Focus from "./pages/Focus"
 import Settings from "./pages/Settings";
 import GeneralPage from "./pages/Settings/General";
 import PlatformsPage from "./pages/Settings/Platforms";
+import Trio from "./pages/Trio";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                 <Route path="general" element={<GeneralPage />} />
                 <Route path="platforms" element={<PlatformsPage />} />
             </Route>
+            <Route path="/trio/:url" element={<Trio />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
