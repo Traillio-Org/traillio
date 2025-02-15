@@ -7,12 +7,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/Auth";
 
 export default function() {
-    const  currentUser  = {
-        username : "Nikunj Chauhan",
-        fullName: "Nkca122"
-    };
-
-    console.log(currentUser);
+    const {currentUser} = useAuth();
 
     return (
         <>

@@ -34,74 +34,74 @@ function App() {
           <Route
             index
             element={
-              <>
+              <ProtectedRoute>
                 <Home />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="focus"
             element={
-              <>
+              <ProtectedRoute>
                 <Focus />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="courses"
             element={
-              <>
+              <ProtectedRoute>
                 <CoursePage />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="courses/cp31"
             element={
-              <>
+              <ProtectedRoute>
                 <CP />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="settings"
             element={
-              <>
+              <ProtectedRoute>
                 <Settings />
-              </>
+              </ProtectedRoute>
             }
           >
             <Route
               path="general"
               element={
-                <>
+                <ProtectedRoute>
                   <GeneralPage />
-                </>
+                </ProtectedRoute>
               }
             />
             <Route
               path="platforms"
               element={
-                <>
+                <ProtectedRoute>
                   <PlatformsPage />
-                </>
+                </ProtectedRoute>
               }
             />
           </Route>
           <Route
             path="analytics"
             element={
-              <>
+              <ProtectedRoute>
                 <Analytics />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="trio/:url"
             element={
-              <>
+              <ProtectedRoute>
                 <Trio />
-              </>
+              </ProtectedRoute>
             }
           />
 

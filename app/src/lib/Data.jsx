@@ -8,6 +8,18 @@ import config from '../config';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
+// Fetches a problem statement from URL
+export const fetchProblemStatement = async (url) => {
+    const response = await (await authRequest(config.api.host + '/data/get_problem', {
+        method: 'post',
+        json: {
+            url: url
+        }
+    })).json();
+    
+    return response;
+};
+
 // Generates an analysis from user input.
 export const createUserAnalysis = async (input) => {
     const response = await (await authRequest(config.api.host + '/data/create_analysis', {
