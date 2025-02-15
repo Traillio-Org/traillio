@@ -1,4 +1,4 @@
-import {Home, ChartPie, Cog, Crosshair, UsersRound} from "lucide-react";
+import {Home, ChartPie, Cog, Crosshair, UsersRound, LibraryBig} from "lucide-react";
 
 export default function() {
     return (
@@ -10,6 +10,10 @@ export default function() {
             <div class="item">
                 <ChartPie />
                 <span>Analytics</span>
+            </div>
+            <div class="item">
+                <LibraryBig />
+                <span>Courses</span>
             </div>
             <div class="item">
                 <Crosshair />

@@ -6,7 +6,7 @@ import NavBar from "@/components/NavBar";
 export default function() {
     return (
         <>
-        <Header />
+        <Header title="Welcome, Sayan" subtitle="Your personal DSA tracker" />
 
         <div className="body home">
             <div className="flex gap-8">

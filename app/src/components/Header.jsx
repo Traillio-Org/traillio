@@ -1,12 +1,12 @@
 import { User } from "lucide-react";
 
-export default function() {
+export default function({ title, subtitle }) {
     return (
         <header className="header">
             <div className="logo"></div>
             <div className="pagetitle">
-                <h1>Welcome, Sayan</h1>
-                <span>Your personal DSA tracker</span>
+                <h1>{title}</h1>
+                <span>{subtitle}</span>
             </div>
 
             <div className="right">
