@@ -1,39 +1,46 @@
-import { Chart as ChartJS, Tooltip, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { useState, useEffect } from "react";
+import Chart from "react-apexcharts";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+export default function () {
+  let [tasks, setTasks] = useState([["2024-09-01", 12], ["2024-09-02", 13]]);
+  let [questions, setQuestions] = useState([["2024-09-01", 13], ["2024-09-02", 3]])
 
-export default function() {
-    return (
-        <Line
-            datasetIdKey='id'
-            data={{
-                labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                datasets: [
-                    {
-                        id: 1,
-                        label: '',
-                        data: [5, 6, 7, 8, 9, 10, 11],
-                    },
-                    {
-                        id: 2,
-                        label: '',
-                        data: [3, 2, 1, 0, 1, 2, 3],
-                    },
-                ],
-                scales: {
-                    x: {
-                        border: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        border: {
-                            display: false
-                        }
+  return (
+    <>
+      <Chart
+        options={{
+            chart: {
+                zoom: {
+                    enabled: false,
+                },
+                toolbar: {
+                    show: false,
+                    tools: {
+                        download: false,
+                        pan: false,
                     }
                 }
-            }}
-        />
-    );
-};
+            },
+        colors: ["#EE82EE", "blue"],
+        markers: {
+            strokeWidth: 2
+        },
+          xaxis:{
+            type: "datetime"
+          }
+        }}
+        series={[
+            {
+                name: "Tasks Done",
+                data: tasks
+            },
+            {
+                name: "Questions Done",
+                data: questions
+            }
+        ]}
+        type={"line"}
+      />
+    </>
+  );
+}
