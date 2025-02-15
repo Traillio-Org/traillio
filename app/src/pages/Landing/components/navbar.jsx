@@ -19,7 +19,6 @@ const Navbar = () => {
     { title: "About", path: "/about" },
     { title: "Features", path: "/features" },
     { title: "Our Team", path: "/team" },
-    { title: "LeaderBoard", path: "/leaderboard" },
   ];
 
   return (

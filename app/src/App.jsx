@@ -91,6 +91,14 @@ function App() {
             }
           />
           <Route
+            path="leaderboard"
+            element={
+              <ProtectedRoute>
+                <CompetitiveProgrammingLeaderboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="trio/:url"
             element={
               <ProtectedRoute>
@@ -118,10 +126,6 @@ function App() {
           <Route path="features" element={<Features />} />
           <Route path="team" element={<OurTeam />} />
           <Route path="about" element={<AboutPage />} />
-          <Route
-            path="leaderboard"
-            element={<CompetitiveProgrammingLeaderboard />}
-          />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
