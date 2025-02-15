@@ -4,6 +4,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import config from "./config";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
+import Focus from "./pages/Focus"
 import Settings from "./pages/Settings";
 import GeneralPage from "./pages/Settings/General";
 import PlatformsPage from "./pages/Settings/Platforms";
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/focus" element={<Focus/>}/>
             <Route path="/settings" element={<Settings />}>
                 <Route index element={<Navigate to="general" replace={true} />} />
                 <Route path="general" element={<GeneralPage />} />

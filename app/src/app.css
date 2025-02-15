@@ -579,3 +579,7 @@ html, body {
     background-size: contain;
     cursor: pointer;
 }
+.focus {
+    height: calc(100vh - 100px);
+    place-items: center;
+}
