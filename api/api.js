@@ -116,27 +116,19 @@ const API = {
             }
         },
 
-        // /**
-        //  * Analyzes given user status/mood and provides data
-        // */
-        // analyzeUserInput: async (input) => {
-        //     const schema = yup.object().shape({
-        //         overall_mood: yup.number().required().integer(),
-        //         happiness: yup.number().required().integer(),
-        //         sadness: yup.number().required().integer(),
-        //         anxiety: yup.number().required().integer(),
-        //         pain: yup.number().required().integer(),
-        //         anger: yup.number().required().integer(),
-        //         excitement: yup.number().required().integer(),
-        //         depression: yup.number().required().integer(),
-        //         life_threatening: yup.boolean().required(),
-        //         summary: yup.string().required(),
-        //         potential_issues: yup.lazy((value) => typeof value === 'string' ? yup.string().required() : yup.boolean().required()),
-        //         feedback: yup.string().required(),
-        //     });
+        /**
+         * Create a Trio response.
+        */
+        trioRespond: async (input) => {
+            const schema = yup.object().shape({
+                message: yup.string().required(),
+                assistantCode: yup.string().optional(),
+                originalCode: yup.string().optional(),
+                algorithm: yup.string().optional(),
+            });
 
-        //     return API.llm.query(Prompts.ANALYZE_USER_INPUT, input, schema);
-        // },
+            return API.llm.query(Prompts.TRIO, input, schema);
+        },
 
     },
 
