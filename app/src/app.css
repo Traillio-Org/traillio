@@ -187,6 +187,16 @@ html, body {
     padding: 20px 130px 100px;
 }
 
+/* Custom Scrollbars */
+.sb::-webkit-scrollbar {
+    width: 0.45em;
+    background-color: transparent;
+}
+.sb::-webkit-scrollbar-thumb {
+    background-color: hsl(0 0% 0% / 0.2);
+    border-radius: 50px;
+}
+
 .padded-box {
     padding: 25px 30px;
     border-radius: 20px;
@@ -240,7 +250,7 @@ html, body {
     border-radius: 50px;
     display: flex;
     align-items: center;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(5px);
     z-index: 100;
     background: #ffffff00;
     color: black;

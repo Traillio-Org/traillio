@@ -4,7 +4,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import config from "./config";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
-import Focus from "./pages/Focus";
+import Settings from "./pages/Settings";
+import Focus from "./pages/Focus"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             </Route> */}
 
             <Route path="/" element={<Home />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/focus" element={<Focus/>}/>
         </Routes>
