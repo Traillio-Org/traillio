@@ -240,7 +240,7 @@ html, body {
     border-radius: 50px;
     display: flex;
     align-items: center;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(5px);
     z-index: 100;
     background: #ffffff00;
     color: black;
