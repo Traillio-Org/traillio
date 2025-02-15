@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Trophy, Brain, Target, Activity, Award, BookOpen } from "lucide-react";
 import Chart from "react-apexcharts";
 import CalendarHeatmap from "react-calendar-heatmap";
+import Header from "@/components/Header";
+import NavBar from "@/components/NavBar";
+import AiPrompt from "@/components/AiPrompt";
 
 export default function Analytics() {
   const [rating] = useState(1250);
@@ -9,32 +12,22 @@ export default function Analytics() {
   const [percentile] = useState(87.5);
 
   const StatCard = ({ title, value, subtitle, icon: Icon, color }) => (
-    <div className="bg-white rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+    <div className="box">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-medium text-gray-800">{title}</h2>
         <Icon className={`w-6 h-6 ${color}`} />
       </div>
-      <div className="text-3xl font-bold text-purple-600">{value}</div>
+      <div className="text-3xl text-purple-600">{value}</div>
       <div className="text-sm text-gray-500 mt-2">{subtitle}</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+    <Header title="Analytics" subtitle="Measure your progress and performance" />
+    <div className="body analytics">
+
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header Section */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
-            <p className="text-gray-600">Track your progress and performance</p>
-          </div>
-          <div className="flex gap-4">
-            <button className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
-              <Activity className="w-4 h-4" />
-              Export Report
-            </button>
-          </div>
-        </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -70,7 +63,7 @@ export default function Analytics() {
 
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-xl p-6">
+          <div className="box">
             <h2 className="text-lg font-medium text-gray-800 mb-4">Problem Distribution</h2>
             <Chart
               options={{
@@ -79,7 +72,7 @@ export default function Analytics() {
                   background: 'transparent',
                   height: 230
                 },
-                colors: ["#22c55e", "#eab308", "#ef4444"],
+                colors: ["#4482d3", "#26b86d", "#ef4444"],
                 labels: ["Easy", "Medium", "Hard"],
                 stroke: { width: 0 },
                 legend: {
@@ -228,6 +221,9 @@ export default function Analytics() {
         </div>
       </div>
     </div>
+      <NavBar />
+      <AiPrompt />
+    </>
   );
 }
 

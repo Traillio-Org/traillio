@@ -29,7 +29,7 @@ export default function () {
             return alert("Please enter a valid URL.");
         }
 
-        navigate(`/trio/${encodeURIComponent(url)}`);
+        navigate(`/dashboard/trio/${encodeURIComponent(url)}`);
     }
 
     return (

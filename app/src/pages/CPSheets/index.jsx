@@ -70,7 +70,7 @@ const CP = () => {
         <div className="box cp-box mx-auto max-w-4xl">
             <div className="text-center mb-8">
                 <h1 className="title text-slate-900 mb-2">
-                    CP Sheet
+                    DSA Sheet
                 </h1>
                 <p className="text-slate-600">
                     Track your progress through rated programming problems.
