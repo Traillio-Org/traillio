@@ -38,8 +38,17 @@ module.exports = {
                         name: lang.languageName,
                         count: lang.problemsSolved
                     }}),
-                    total_solved: profile.totalSolved
-                }
+                    total_solved: profile.totalSolved,
+                    ranking: profile.ranking,
+                    success_rate: profile.totalSubmissions[0].count / profile.totalSubmissions[0].submissions,
+                    submissions: {
+                        easy: profile.easySolved,
+                        medium: profile.mediumSolved,
+                        hard: profile.hardSolved
+                    },
+                    submission_calendar: profile.submissionCalendar
+                },
+
             }
         };
 

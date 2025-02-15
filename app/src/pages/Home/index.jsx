@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/Auth";
 import { fetchProfile } from "@/lib/Data";
 import { useEffect, useState } from "react";
+import TaskManager from "@/components/TaskManager";
 
 export default function () {
   const { currentUser } = useAuth();
@@ -247,6 +248,7 @@ export default function () {
               <span className="link">
                 View all tasks <ArrowRight />
               </span>
+              <TaskManager />
             </div>
           </div>
         </div>

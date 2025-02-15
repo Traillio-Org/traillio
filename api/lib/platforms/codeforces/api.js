@@ -64,4 +64,23 @@ module.exports = {
         return response.data.result;
     },
 
+    /**
+     * Get the history of rating changes for a username.
+    */ 
+    async getRatingHistory(username) {
+        const url = API_URL + `/user.rating?handle=${username}`;
+        const response = await axios.get(url);
+
+        if (response.data.status !== "OK") throw new Error(response.data.comment);
+
+        return response.data.result.map(item => {return {
+            contestId: item.contestId,
+            contestName: item.contestName,
+            oldRating: item.oldRating,
+            newRating: item.newRating,
+            rank: item.rank,
+            timestamp: item.ratingUpdateTimeSeconds
+        };});
+    }
+
 };

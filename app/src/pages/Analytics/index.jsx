@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Trophy, Brain, Target, Activity, Award, BookOpen } from "lucide-react";
 import Chart from "react-apexcharts";
 import CalendarHeatmap from "react-calendar-heatmap";
@@ -6,10 +6,41 @@ import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
 import AiPrompt from "@/components/AiPrompt";
 
+import { fetchProfile } from "@/lib/Data";
+
 export default function Analytics() {
-  const [rating] = useState(1250);
-  const [totalUsers] = useState(10000);
-  const [percentile] = useState(87.5);
+    let [counters, setCounters] = useState(null);
+
+    useEffect(() => {
+        fetchProfile().then((data) => {
+            let ratingHistory = [];
+            let calendarHistory = [];
+
+            data.stats.codeforces.rating_history.forEach((rating) => {
+                ratingHistory.push([rating.timestamp * 1000, rating.newRating]);
+            });
+
+            Object.keys(data.stats.leetcode.submission_calendar).forEach((key) => {
+                calendarHistory.push({
+                    date: Number(key) * 1000,
+                    count: data.stats.leetcode.submission_calendar[key]
+                });
+            });
+
+            console.log(calendarHistory);
+        
+            setCounters({
+                rating: data.stats.codeforces.rating,
+                maxRating: data.stats.codeforces.max_rating,
+                problemsSolved: data.stats.codeforces.total_solved + data.stats.leetcode.total_solved,
+                successRate: data.stats.leetcode.success_rate,
+                submissions: data.stats.leetcode.submissions,
+                leetcodeSolved: data.stats.leetcode.total_solved,
+                ratingHistory: ratingHistory,
+                calendarHistory: calendarHistory
+            });
+        });
+    }, []);
 
   const StatCard = ({ title, value, subtitle, icon: Icon, color }) => (
     <div className="box">
@@ -17,7 +48,7 @@ export default function Analytics() {
         <h2 className="text-lg font-medium text-gray-800">{title}</h2>
         <Icon className={`w-6 h-6 ${color}`} />
       </div>
-      <div className="text-3xl text-purple-600">{value}</div>
+      <div className="text-3xl">{value}</div>
       <div className="text-sm text-gray-500 mt-2">{subtitle}</div>
     </div>
   );
@@ -33,22 +64,22 @@ export default function Analytics() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
             title="Current Rating"
-            value={rating}
-            subtitle={`Top ${percentile}% of ${totalUsers.toLocaleString()} users`}
+            value={counters ? counters.rating ?? "N/A" : "N/A"}
+            subtitle={`In Codeforces`}
             icon={Trophy}
             color="text-yellow-500"
           />
           <StatCard
             title="Problems Solved"
-            value="328"
-            subtitle="Last 30 days: +42"
+            value={counters ? counters.problemsSolved ?? "N/A" : "N/A"}
+            subtitle="over all time"
             icon={Target}
             color="text-blue-500"
           />
           <StatCard
             title="Success Rate"
-            value="76%"
-            subtitle="Last 50 submissions"
+            value={counters ? Math.round(counters.successRate*100) + '%' ?? "N/A" : "N/A"}
+            subtitle="over all time"
             icon={Award}
             color="text-green-500"
           />
@@ -64,46 +95,51 @@ export default function Analytics() {
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="box">
-            <h2 className="text-lg font-medium text-gray-800 mb-4">Problem Distribution</h2>
-            <Chart
-              options={{
-                chart: {
-                  animations: { enabled: true, speed: 1000 },
-                  background: 'transparent',
-                  height: 230
-                },
-                colors: ["#4482d3", "#26b86d", "#ef4444"],
-                labels: ["Easy", "Medium", "Hard"],
-                stroke: { width: 0 },
-                legend: {
-                  position: "bottom",
-                  markers: { radius: 2 }
-                },
-                dataLabels: {
-                  enabled: true,
-                  formatter: (val) => `${val}%`,
-                  style: {
-                    colors: ["#f5f5f5"]
-                  }
-                },
-                plotOptions: {
-                  pie: {
-                    donut: {
-                      size: "65%"
+            <h2 className="text-lg font-medium text-gray-800 mb-4">Difficulty Distribution</h2>
+            {counters ? (
+                <Chart
+                options={{
+                    chart: {
+                    animations: { enabled: true, speed: 1000 },
+                    background: 'transparent',
+                    height: 230
+                    },
+                    colors: ["#4482d3", "#26b86d", "#ef4444"],
+                    labels: ["Easy", "Medium", "Hard"],
+                    stroke: { width: 0 },
+                    legend: {
+                    position: "bottom",
+                    markers: { radius: 2 }
+                    },
+                    dataLabels: {
+                    enabled: true,
+                    formatter: (val) => `${val}%`,
+                    style: {
+                        colors: ["#f5f5f5"]
                     }
-                  }
-                }
-              }}
-              type="donut"
-              series={[35, 45, 20]}
-
-            />
+                    },
+                    plotOptions: {
+                    pie: {
+                        donut: {
+                        size: "65%"
+                        }
+                    }
+                    }
+                }}
+                type="donut"
+                series={[Math.round((counters.submissions.easy / counters.leetcodeSolved) * 100), Math.round((counters.submissions.medium / counters.leetcodeSolved) * 100), Math.round((counters.submissions.hard / counters.leetcodeSolved) * 100)]}
+                />
+            ) : null}
+            
           </div>
 
           <div className="bg-white rounded-xl p-6">
             <h2 className="text-lg font-medium text-gray-800 mb-4">Rating Progress</h2>
+
+            {counters ? (
             <Chart
               options={{
+                dataLabels: { enabled: false },
                 chart: {
                   toolbar: { show: false },
                   zoom: { enabled: false },
@@ -129,6 +165,7 @@ export default function Analytics() {
                 },
                 xaxis: {
                   categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                  type: "datetime",
                   labels: { style: { colors: "#64748b" } }
                 },
                 yaxis: {
@@ -138,10 +175,11 @@ export default function Analytics() {
               type="area"
               series={[{
                 name: "Rating",
-                data: [800, 950, 875, 1100, 1250, 1400]
+                data: counters.ratingHistory
               }]}
               height={300}
             />
+            ) : null}
           </div>
 
           <div className="bg-white rounded-xl p-6">
@@ -194,17 +232,11 @@ export default function Analytics() {
         <div className="bg-white rounded-xl p-6">
           <h2 className="text-lg font-medium text-gray-800 mb-4">Activity Heatmap</h2>
           <div className="overflow-hidden h-[180px] flex flex-col">
+            {counters ? (
             <CalendarHeatmap
-              startDate={new Date("2024-01-01")}
-              endDate={new Date("2024-12-31")}
-              values={[
-                { date: "2024-01-01", count: 4 },
-                { date: "2024-01-03", count: 7 },
-                { date: "2024-01-05", count: 12 },
-                { date: "2024-01-08", count: 5 },
-                { date: "2024-01-10", count: 8 },
-                { date: "2024-01-12", count: 15 }
-              ]}
+              startDate={new Date("2025-01-01")}
+              endDate={new Date("2026-01-01")}
+              values={counters.calendarHistory}
               classForValue={(value) => {
                 if (!value) return "color-empty";
                 return `color-scale-${Math.min(4, Math.ceil(value.count / 4))}`;
@@ -217,6 +249,7 @@ export default function Analytics() {
               gutterSize={2}
               height={100}
             />
+            ) : null}
           </div>
         </div>
       </div>

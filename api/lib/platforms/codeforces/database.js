@@ -39,6 +39,9 @@ module.exports = {
         // Get user's submissions
         const submissions = await api.getSubmissions(username, "OK", limit);
 
+        // Get user's rating history
+        const ratingHistory = await api.getRatingHistory(username);
+
         // Find languages used and count each
         let accepted = submissions.length;
         let langs = {};
@@ -55,18 +58,21 @@ module.exports = {
         let update = {
             stats: {
                 codeforces: {
-                    // rating: profile.rating,
-                    // max_rating: profile.maxRating,
-                    // rank: profile.rank,
-                    // max_rank: profile.maxRank,
                     langs: Object.keys(langs).map(lang => {return {
                         name: lang,
                         count: langs[lang]
                     }}),
-                    total_solved: accepted
+                    total_solved: accepted,
+                    ranking: profile.rank,
+                    max_ranking: profile.maxRank,
+                    rating: profile.rating,
+                    max_rating: profile.maxRating,
+                    rating_history: ratingHistory
                 }
             }
         };
+
+        console.log(update);
 
         try {
             await db.query(`UPDATE $id MERGE $obj;`, {
