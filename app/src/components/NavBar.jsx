@@ -4,27 +4,27 @@ import {NavLink} from "react-router-dom";
 export default function() {
     return (
         <div class="navbar">
-            <NavLink to="/" className="item">
+            <NavLink to="/dashboard" className="item">
                 <Home />
                 <span>Home</span>
             </NavLink>
-            <NavLink to="/analytics" className="item">
+            <NavLink to="/dashboard/analytics" className="item">
                 <ChartPie />
                 <span>Analytics</span>
             </NavLink>
-            <NavLink to="/courses" className="item">
+            <NavLink to="/dashboard/courses" className="item">
                 <LibraryBig />
                 <span>Courses</span>
             </NavLink>
-            <NavLink to="/focus" className="item">
+            <NavLink to="/dashboard/focus" className="item">
                 <Crosshair />
                 <span>Focus</span>
             </NavLink>
-            <NavLink to="/leaderboard" className="item">
+            <NavLink to="/dashboard/leaderboard" className="item">
                 <UsersRound />
                 <span>Leaderboard</span>
             </NavLink>
-            <NavLink to="/settings" className="item">
+            <NavLink to="/dashboard/settings/general" className="item">
                 <Settings />
                 <span>Settings</span>
             </NavLink>
