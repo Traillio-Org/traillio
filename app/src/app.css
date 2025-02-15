@@ -187,6 +187,16 @@ html, body {
     padding: 20px 130px 100px;
 }
 
+/* Custom Scrollbars */
+.sb::-webkit-scrollbar {
+    width: 0.45em;
+    background-color: transparent;
+}
+.sb::-webkit-scrollbar-thumb {
+    background-color: hsl(0 0% 0% / 0.2);
+    border-radius: 50px;
+}
+
 .padded-box {
     padding: 25px 30px;
     border-radius: 20px;
