@@ -7,7 +7,6 @@ import {
 import { ProtectedRoute } from "./lib/Auth";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import config from "./config";
-import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Focus from "./pages/Focus";
 // import CoursePage from "./pages/Courses";
@@ -104,23 +103,25 @@ function App() {
         </Route>
 
         <Route path="/" element={<Layout />}>
+          <Route index element={<LandingPage />} />
           <Route
-            path="auth"
+            path="login"
             element={
               <GoogleOAuthProvider
                 clientId={config.auth.google_oauth_client_id}
               >
-                <Auth />
+                <LoginPage />
               </GoogleOAuthProvider>
             }
           />
-          <Route index element={<LandingPage />} />
-          <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="features" element={<Features />} />
           <Route path="team" element={<OurTeam />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="leaderboard" element={<CompetitiveProgrammingLeaderboard/>}/>
+          <Route
+            path="leaderboard"
+            element={<CompetitiveProgrammingLeaderboard />}
+          />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -246,5 +246,5 @@ export const ProtectedRoute = ({ children }) => {
         return null; // Add loading spinner here
     }
   
-    return currentUser ? children : <Navigate to="/auth" replace />;
+    return currentUser ? children : <Navigate to="/" replace />;
 };
