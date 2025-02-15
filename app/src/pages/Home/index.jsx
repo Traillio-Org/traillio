@@ -2,6 +2,7 @@ import {User, Users, Clock, Flame, Calendar, Ellipsis, Code, ArrowUpRight, Arrow
 import WeekChart from './chart';
 import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
+import { Link } from "react-router-dom";
 
 export default function() {
     return (
@@ -113,9 +114,11 @@ export default function() {
                                             backgroundImage: "url(/codeforces.webp)"
                                         }}></div>
                                     </div>
-                                    <div className="edit">
-                                        <Ellipsis />
-                                    </div>
+                                    <Link to="/settings/platforms">
+                                        <div className="edit">
+                                            <Ellipsis />
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -165,6 +168,9 @@ export default function() {
         </div>
 
         <NavBar />
+
+        <div class="ai-box"></div>
+
         </>
     );
 }

@@ -1,4 +1,4 @@
-import {Home, ChartPie, Cog, Crosshair, UsersRound, LibraryBig} from "lucide-react";
+import {Home, ChartPie, Settings, Crosshair, UsersRound, LibraryBig} from "lucide-react";
 import {NavLink} from "react-router-dom";
 
 export default function() {
@@ -25,7 +25,7 @@ export default function() {
                 <span>Leaderboard</span>
             </NavLink>
             <NavLink to="/settings" className="item">
-                <Cog />
+                <Settings />
                 <span>Settings</span>
             </NavLink>
         </div>
