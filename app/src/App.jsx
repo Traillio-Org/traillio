@@ -24,6 +24,7 @@ import Features from "./pages/Landing/sections/features";
 import OurTeam from "./pages/Landing/sections/team";
 import AboutPage from "./pages/Landing/sections/about";
 import Layout from "./pages/Landing/layout";
+import Analytics from "./pages/Analytics";
 
 function App() {
   return (
@@ -33,82 +34,91 @@ function App() {
           <Route
             index
             element={
-              <ProtectedRoute>
+              <>
                 <Home />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="focus"
             element={
-              <ProtectedRoute>
+              <>
                 <Focus />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="courses"
             element={
-              <ProtectedRoute>
+              <>
                 <CoursePage />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="courses/cp31"
             element={
-              <ProtectedRoute>
+              <>
                 <CP />
-              </ProtectedRoute>
+              </>
             }
           />
           <Route
             path="settings"
             element={
-              <ProtectedRoute>
+              <>
                 <Settings />
-              </ProtectedRoute>
+              </>
             }
           >
             <Route
               path="general"
               element={
-                <ProtectedRoute>
+                <>
                   <GeneralPage />
-                </ProtectedRoute>
+                </>
               }
             />
             <Route
               path="platforms"
               element={
-                <ProtectedRoute>
+                <>
                   <PlatformsPage />
-                </ProtectedRoute>
+                </>
               }
             />
-            <Route
-              path="trio/:url"
-              element={
-                <ProtectedRoute>
-                  <Trio />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
           </Route>
+          <Route
+            path="analytics"
+            element={
+              <>
+                <Analytics />
+              </>
+            }
+          />
+          <Route
+            path="trio/:url"
+            element={
+              <>
+                <Trio />
+              </>
+            }
+          />
+
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path="/" element={<Layout />}>
-        <Route
-              path="auth"
-              element={
-                <GoogleOAuthProvider
-                  clientId={config.auth.google_oauth_client_id}
-                >
-                  <Auth />
-                </GoogleOAuthProvider>
-              }
-            />
+          <Route
+            path="auth"
+            element={
+              <GoogleOAuthProvider
+                clientId={config.auth.google_oauth_client_id}
+              >
+                <Auth />
+              </GoogleOAuthProvider>
+            }
+          />
           <Route index element={<LandingPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />

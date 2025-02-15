@@ -5,665 +5,693 @@
 
 @layer base {
   :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
   .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
-html, body {
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
-    font-family: "Poppins", serif;
-    background-color: #eff5ff;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  font-family: "Poppins", serif;
+  background-color: #eff5ff;
 }
 
-*, *::after, *::before {
-    box-sizing: border-box;
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
 .header {
-    padding: 0px 130px;
-    display: flex;
-    align-items: center;
-    height: 100px;
+  padding: 0px 130px;
+  display: flex;
+  align-items: center;
+  height: 100px;
 
-    .logo {
-        height: 50px;
-        width: 50px;
-        background-image: url(/branding/favicon.png);
-        background-size: contain;
-        margin-right: 15px;
-        background-color: white;
-        border-radius: 50px;
+  .logo {
+    height: 50px;
+    width: 50px;
+    background-image: url(/branding/favicon.png);
+    background-size: contain;
+    margin-right: 15px;
+    background-color: white;
+    border-radius: 50px;
+  }
+
+  .pagetitle {
+    h1 {
+      padding: 0;
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 500;
     }
 
-    .pagetitle {
-        h1 {
-            padding: 0;
-            margin: 0;
-            font-size: 1.3rem;
-            font-weight: 500;
-        }
-
-        span {
-            font-size: 0.85rem;
-            color: #a5a5a5;
-            position: relative;
-            top: -3px;
-        }
+    span {
+      font-size: 0.85rem;
+      color: #a5a5a5;
+      position: relative;
+      top: -3px;
     }
+  }
 
-    .right {
-        margin-left: auto;
+  .right {
+    margin-left: auto;
 
-        .user-btn {
-            height: 50px;
-            width: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50px;
-            transition-duration: 200ms;
+    .user-btn {
+      height: 50px;
+      width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50px;
+      transition-duration: 200ms;
 
-            > svg {
-                width: 26px;
-                height: 26px;
-            }
-        }
-        .user-btn:hover {
-            background-color: white;
-        }
+      > svg {
+        width: 26px;
+        height: 26px;
+      }
     }
+    .user-btn:hover {
+      background-color: white;
+    }
+  }
 }
 
 @layer base {
   :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
   .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
 .body {
-    padding: 20px 130px 100px;
+  padding: 20px 130px 100px;
 }
 
 /* Custom Scrollbars */
 .sb::-webkit-scrollbar {
-    width: 0.45em;
-    background-color: transparent;
+  width: 0.45em;
+  background-color: transparent;
 }
 .sb::-webkit-scrollbar-thumb {
-    background-color: hsl(0 0% 0% / 0.2);
-    border-radius: 50px;
+  background-color: hsl(0 0% 0% / 0.2);
+  border-radius: 50px;
 }
 
 .padded-box {
-    padding: 25px 30px;
-    border-radius: 20px;
+  padding: 25px 30px;
+  border-radius: 20px;
 }
 
 .box {
-    padding: 25px 30px;
-    border-radius: 20px;
-    background-color: white;
-    box-shadow: 0px 2px 15px #00000008;
-    position: relative;
+  padding: 25px 30px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 2px 15px #00000008;
+  position: relative;
 
-    .box-header {
-        display: flex;
+  .box-header {
+    display: flex;
 
-        h1 {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        svg {
-            margin-left: auto;
-            color: #8b8b8b;
-        }
+    h1 {
+      font-size: 1.1rem;
+      font-weight: 500;
     }
+
+    svg {
+      margin-left: auto;
+      color: #8b8b8b;
+    }
+  }
 }
 
 .link {
-    display: inline-flex;
-    font-size: 0.9rem;
-    gap: 7px;
-    align-items: center;
-    cursor: pointer;
+  display: inline-flex;
+  font-size: 0.9rem;
+  gap: 7px;
+  align-items: center;
+  cursor: pointer;
 
-    svg {
-        width: 0.9rem;
-    }
+  svg {
+    width: 0.9rem;
+  }
 }
 .link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .navbar {
-    position: fixed;
-    bottom: 20px;
-    width: 40%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    height: 60px;
-    border-radius: 50px;
+  position: fixed;
+  bottom: 20px;
+  width: 40%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 60px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background: #ffffff00;
+  color: black;
+  border: 1px solid #0000001c;
+
+  .item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    backdrop-filter: blur(5px);
-    background: #ffffff00;
-    color: black;
-    border: 1px solid #0000001c;
+    width: 100%;
+    cursor: pointer;
 
-    .item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        cursor: pointer;
-
-        span {
-            font-size: 0.9rem;
-            color: #000000b8;
-        }
+    span {
+      font-size: 0.9rem;
+      color: #000000b8;
     }
-    .item.active {
-        svg {
-            color: #0047c4;
-        }
-        span {
-            color: #000062;
-        }
+  }
+  .item.active {
+    svg {
+      color: #0047c4;
     }
+    span {
+      color: #000062;
+    }
+  }
 }
 
 .home {
-    .profile-box {
-        .pfp {
-            margin: auto;
-            width: fit-content;
-            padding: 7px;
-            border-radius: 100px;
-            border: 4px solid #e2e2e2;
-            
-            div {
-                height: 95px;
-                width: 95px;
-                background-size: cover;
-                background-position: center;
-                border-radius: 100px;
-            }
-        }
+  .profile-box {
+    .pfp {
+      margin: auto;
+      width: fit-content;
+      padding: 7px;
+      border-radius: 100px;
+      border: 4px solid #e2e2e2;
 
-        .info {
-            text-align: center;
-            padding: 15px 0px;
-
-            h1 {
-                font-size: 1.2rem;
-                font-weight: 500;
-            }
-
-            h2 {
-                font-size: 0.9rem;
-                color: #909090;
-            }
-        }
-
-        .badges {
-            display: flex;
-            justify-content: space-around;
-
-            .badge {
-                display: flex;
-                align-items: center;
-                font-size: 1rem;
-                gap: 4px;
-                background-color: #ededed;
-                border-radius: 50px;
-                height: 30px;
-                padding: 0px 10px;
-                font-size: 0.9rem;
-
-                svg {
-                    width: 0.9rem;
-                    color: #3b7fb7;
-                }
-            }
-        }
+      div {
+        height: 95px;
+        width: 95px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 100px;
+      }
     }
 
-    .stat-box {
-        .stats {
-            margin-top: 65px;
+    .info {
+      text-align: center;
+      padding: 15px 0px;
 
-            h1 {
-                font-size: 3rem;
-            }
-            h2 {
-                color: #00000094;
-            }
-        }
+      h1 {
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      h2 {
+        font-size: 0.9rem;
+        color: #909090;
+      }
     }
 
-    .platforms-box {
-        background-color: #0000000f;
+    .badges {
+      display: flex;
+      justify-content: space-around;
+
+      .badge {
         display: flex;
-        
-        .labels {
-            h1 {
-                font-size: 1.2rem;
-            }
-            h2 {
-                font-size: 0.9rem;
-                color: #0000007d;
-            }
+        align-items: center;
+        font-size: 1rem;
+        gap: 4px;
+        background-color: #ededed;
+        border-radius: 50px;
+        height: 30px;
+        padding: 0px 10px;
+        font-size: 0.9rem;
+
+        svg {
+          width: 0.9rem;
+          color: #3b7fb7;
         }
+      }
+    }
+  }
 
-        .right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+  .stat-box {
+    .stats {
+      margin-top: 65px;
 
-            .edit {
-                cursor: pointer;
-            }
+      h1 {
+        font-size: 3rem;
+      }
+      h2 {
+        color: #00000094;
+      }
+    }
+  }
 
-            .logos {
-                display: flex;
-                gap: 10px;
+  .platforms-box {
+    background-color: #0000000f;
+    display: flex;
 
-                .icon {
-                    height: 40px;
-                    width: 40px;
-                    background-color: #ffffff;
-                    border-radius: 50px;
-                    box-shadow: 0px 1px 3px #0000001a;
-                    background-size: 24px;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                }
-            }
-        }
+    .labels {
+      h1 {
+        font-size: 1.2rem;
+      }
+      h2 {
+        font-size: 0.9rem;
+        color: #0000007d;
+      }
     }
 
-    .languages-box {
-        .language {
-            margin-top: 20px;
+    .right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-            .labels {
-                display: flex;
-                align-items: center;
+      .edit {
+        cursor: pointer;
+      }
 
-                h1 {
-                    font-size: 1.1rem;
-                }
+      .logos {
+        display: flex;
+        gap: 10px;
 
-                h2 {
-                    margin-left: auto;
-                    font-size: 0.9rem;
-                    color: #4e4e4e;
-                }
-            }
-
-            .progressbar {
-                height: 7px;
-                width: 100%;
-                background-color: #e4e4e4;
-                border-radius: 10px;
-                overflow: hidden;
-                margin-top: 5px;
-
-                .progress {
-                    height: 100%;
-                    background-color: #008eff;
-                }
-            }
+        .icon {
+          height: 40px;
+          width: 40px;
+          background-color: #ffffff;
+          border-radius: 50px;
+          box-shadow: 0px 1px 3px #0000001a;
+          background-size: 24px;
+          background-position: center;
+          background-repeat: no-repeat;
         }
+      }
+    }
+  }
+
+  .languages-box {
+    .language {
+      margin-top: 20px;
+
+      .labels {
+        display: flex;
+        align-items: center;
+
+        h1 {
+          font-size: 1.1rem;
+        }
+
+        h2 {
+          margin-left: auto;
+          font-size: 0.9rem;
+          color: #4e4e4e;
+        }
+      }
+
+      .progressbar {
+        height: 7px;
+        width: 100%;
+        background-color: #e4e4e4;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 5px;
+
+        .progress {
+          height: 100%;
+          background-color: #008eff;
+        }
+      }
+    }
+  }
+
+  .tasks-box {
+    .list {
+      margin-top: 20px;
+
+      .item {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid #e7e7e7;
+        padding-bottom: 10px;
+        cursor: pointer;
+
+        .content {
+          .due {
+            font-size: 0.85rem;
+            color: #787878;
+          }
+        }
+      }
+      .item:last-child {
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+      .item:hover .content h1 {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .chart-box {
+    border: 2px solid #00000012;
+
+    .title {
+      font-size: 1.2rem;
+      font-weight: 500;
     }
 
-    .tasks-box {
-        .list {
-            margin-top: 20px;
-
-            .item {
-                margin-bottom: 10px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                border-bottom: 1px solid #e7e7e7;
-                padding-bottom: 10px;
-                cursor: pointer;
-    
-                .content {
-                    .due {
-                        font-size: 0.85rem;
-                        color: #787878;
-                    }
-                }
-            }
-            .item:last-child {
-                border-bottom: 0;
-                margin-bottom: 0;
-            }
-            .item:hover .content h1 {
-                text-decoration: underline;
-            }
-        }
+    .subtitle {
+      font-size: 1.1rem;
+      color: #0000007d;
     }
-
-    .chart-box {
-        border: 2px solid #00000012;
-
-        .title {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #0000007d;
-        }
-    }
+  }
 }
 
 .notfound {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
-    h1 {
-        font-size: 4rem;
-        color: #0d73bc;
-    }
+  h1 {
+    font-size: 4rem;
+    color: #0d73bc;
+  }
 }
 
 .settings {
-    .menu {
-        border-right: 1px solid #00000014;
-        padding-right: calc(8* 0.25rem);
+  .menu {
+    border-right: 1px solid #00000014;
+    padding-right: calc(8 * 0.25rem);
 
-        .item {
-            display: flex;
-            border-radius: 15px;
-            padding: 10px 20px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            cursor: pointer;
-            align-items: center;
-            gap: 10px;
+    .item {
+      display: flex;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-weight: 500;
+      margin-bottom: 15px;
+      cursor: pointer;
+      align-items: center;
+      gap: 10px;
 
-            svg {
-                width: 1rem;
-            }
-        }
-        .item.active {
-            background-color: #0000000d;
-        }
+      svg {
+        width: 1rem;
+      }
+    }
+    .item.active {
+      background-color: #0000000d;
+    }
+  }
+
+  .form {
+    h1.title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
     }
 
-    .form {
-        h1.title {
+    .general {
+      input,
+      textarea {
+        background-color: white;
+        border: 0;
+        box-shadow: 0px 1px 3px #0000001c;
+        border-radius: 10px;
+      }
+    }
+
+    .platforms {
+      .platform {
+        align-items: center;
+        gap: 15px;
+
+        .icon {
+          height: 40px;
+          width: 40px;
+          background-size: contain;
+        }
+        .labels {
+          h1 {
+            margin-bottom: 0px;
             font-size: 1.5rem;
-            margin-bottom: 15px;
+          }
         }
 
-        .general {
-            input, textarea {
-                background-color: white;
-                border: 0;
-                box-shadow: 0px 1px 3px #0000001c;
-                border-radius: 10px;
-            }
+        .form {
+          margin-left: auto;
         }
-
-        .platforms {
-            .platform {
-                align-items: center;
-                gap: 15px;
-
-                .icon {
-                    height: 40px;
-                    width: 40px;
-                    background-size: contain;
-                }
-                .labels {
-                    h1 {
-                        margin-bottom: 0px;
-                        font-size: 1.5rem;
-                    }
-                }
-
-                .form {
-                    margin-left: auto;
-                }
-                input {
-                    background-color: #ededed;
-                    border: 0;
-                    border-radius: 10px;
-                }
-            }
+        input {
+          background-color: #ededed;
+          border: 0;
+          border-radius: 10px;
         }
+      }
     }
+  }
 }
 
 .btn {
-    padding: 0px 15px;
-    cursor: pointer;
-    border-radius: 15px;
-    height: 37px;
-    transition-duration: 200ms;
+  padding: 0px 15px;
+  cursor: pointer;
+  border-radius: 15px;
+  height: 37px;
+  transition-duration: 200ms;
 }
 
 .btn.btn-primary {
-    background-color: #456efc;
-    color: white;
+  background-color: #456efc;
+  color: white;
 }
 .btn.btn-primary:hover {
-    background-color: #355bdf;
+  background-color: #355bdf;
 }
 
 .btn.btn-outline {
-    border: 1px solid;
+  border: 1px solid;
 }
 
 .ai-box {
-    height: 60px;
-    width: 60px;
-    position: fixed;
-    bottom: 20px;
-    right: 130px;
-    border-radius: 100px;
-    background-image: url(/ai.png);
-    background-size: contain;
-    cursor: pointer;
-    box-shadow: 0px 1px 10px #0000002b;
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  bottom: 20px;
+  right: 130px;
+  border-radius: 100px;
+  background-image: url(/ai.png);
+  background-size: contain;
+  cursor: pointer;
+  box-shadow: 0px 1px 10px #0000002b;
 }
 .focus {
-    height: calc(100vh - 100px);
-    place-items: center;
+  height: calc(100vh - 100px);
+  place-items: center;
 }
 
 .ai-drawer {
-    background-color: white;
+  background-color: white;
 
-    input {
-        border: 0;
-        background-color: #e5e5e5;
-        outline: none;
-    }
+  input {
+    border: 0;
+    background-color: #e5e5e5;
+    outline: none;
+  }
 }
 
 .trio {
-    .problem-box {
-        height: calc(100vh - 60px);
-        overflow-y: auto;
+  .problem-box {
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .problem {
+    white-space: pre-line;
+    font-size: 0.9rem;
+    margin-top: 15px;
+  }
+
+  .chat-box {
+    .message {
+      width: fit-content;
+      padding: 7px 17px;
+      background-color: #0000000f;
+      border-radius: 50px;
+      max-width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 20px;
+    }
+    .message.right {
+      margin-left: auto;
     }
 
-    .problem {
-        white-space: pre-line;
-        font-size: 0.9rem;
-        margin-top: 15px;
+    .code-diff {
+      margin-bottom: 20px;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid #0000001f;
+    }
+  }
+
+  .input-box {
+    background-color: white;
+    display: flex;
+    overflow: hidden;
+    border-radius: 50px;
+    border: 1px solid #00000029;
+    align-items: center;
+
+    input {
+      padding: 15px 20px;
+      width: 100%;
+      outline: none;
+      border: none;
     }
 
-    .chat-box {
-        .message {
-            width: fit-content;
-            padding: 7px 17px;
-            background-color: #0000000f;
-            border-radius: 50px;
-            max-width: 50%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 20px;
-        }
-        .message.right {
-            margin-left: auto;
-        }
-
-        .code-diff {
-            margin-bottom: 20px;
-            overflow: hidden;
-            border-radius: 20px;
-            border: 1px solid #0000001f;
-        }
+    .submit-btn {
+      height: 45px;
+      width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2677ff;
+      border-radius: 50px;
+      margin-right: 5px;
+      color: white;
+      min-width: 45px;
+      cursor: pointer;
     }
-
-    .input-box {
-        background-color: white;
-        display: flex;
-        overflow: hidden;
-        border-radius: 50px;
-        border: 1px solid #00000029;
-        align-items: center;
-
-        input {
-            padding: 15px 20px;
-            width: 100%;
-            outline: none;
-            border: none;
-        }
-
-        .submit-btn {
-            height: 45px;
-            width: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #2677ff;
-            border-radius: 50px;
-            margin-right: 5px;
-            color: white;
-            min-width: 45px;
-            cursor: pointer;
-        }
-    }
+  }
 }
 
 .dropdown-content {
-    border: 1px solid #00000026;
-    background-color: white;
+  border: 1px solid #00000026;
+  background-color: white;
+}
+
+.react-calendar-heatmap {
+  .color-empty {
+    fill: #616161;
+  }
+  .color-scale-0 {
+    fill: #d6e685;
+  }
+  .color-scale-1 {
+    fill: #8cc665;
+  }
+
+  .color-scale-2 {
+    fill: #44a340;
+  }
+
+  .color-scale-3 {
+    fill: #1e6823;
+  }
+
+  .color-scale-4 {
+    fill: #0a390d;
+  }
 }
