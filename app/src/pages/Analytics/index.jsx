@@ -9,36 +9,63 @@ import AiPrompt from "@/components/AiPrompt";
 import { fetchProfile } from "@/lib/Data";
 
 export default function Analytics() {
-    let [counters, setCounters] = useState(null);
+    let [counters, setCounters] = useState({});
 
     useEffect(() => {
         fetchProfile().then((data) => {
-            let ratingHistory = [];
-            let calendarHistory = [];
-
-            data.stats.codeforces.rating_history.forEach((rating) => {
-                ratingHistory.push([rating.timestamp * 1000, rating.newRating]);
-            });
-
-            Object.keys(data.stats.leetcode.submission_calendar).forEach((key) => {
-                calendarHistory.push({
-                    date: Number(key) * 1000,
-                    count: data.stats.leetcode.submission_calendar[key]
+            console.log(data);
+            if (!data.stats) return;
+            if(data.stats.leetcode) {
+                let calendarHistory = [];
+                Object.keys(data.stats?.leetcode.submission_calendar).forEach((key) => {
+                    calendarHistory.push({
+                        date: Number(key) * 1000,
+                        count: data.stats.leetcode.submission_calendar[key]
+                    });
                 });
-            });
 
-            console.log(calendarHistory);
-        
-            setCounters({
-                rating: data.stats.codeforces.rating,
-                maxRating: data.stats.codeforces.max_rating,
-                problemsSolved: data.stats.codeforces.total_solved + data.stats.leetcode.total_solved,
-                successRate: data.stats.leetcode.success_rate,
-                submissions: data.stats.leetcode.submissions,
-                leetcodeSolved: data.stats.leetcode.total_solved,
-                ratingHistory: ratingHistory,
-                calendarHistory: calendarHistory
-            });
+                setCounters(curr => {
+                    return {
+                        ...curr, 
+                        ...{
+                            problemsSolved: data.stats.leetcode.total_solved,
+                            successRate: data.stats.leetcode.success_rate,
+                            submissions: data.stats.leetcode.submissions,
+                            leetcodeSolved: data.stats.leetcode.total_solved,
+                            calendarHistory: calendarHistory
+                        }
+                    }
+                })
+            }
+
+            if (data.stats.codeforces) {
+                let ratingHistory = [];
+                data.stats.codeforces.rating_history.forEach((rating) => {
+                    ratingHistory.push([rating.timestamp * 1000, rating.newRating]);
+                });
+
+                setCounters(curr => {
+                    return {
+                        ...curr,
+                        ...{
+                            rating: data.stats.codeforces.rating,
+                            maxRating: data.stats.codeforces.max_rating,
+                            ratingHistory: ratingHistory,
+                            problemsSolved: data.stats.codeforces.total_solved,
+                        }
+                    }
+                });
+            }
+
+
+            if (data.stats.codeforces && data.stats.leetcode) {
+                setCounters(curr => {return {
+                    ...curr,
+                    ...{
+                        problemsSolved: data.stats.codeforces.total_solved + data.stats.leetcode.total_solved
+                    }
+                }})
+            }
         });
     }, []);
 
@@ -64,7 +91,7 @@ export default function Analytics() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
             title="Current Rating"
-            value={counters ? counters.rating ?? "N/A" : "N/A"}
+            value={counters && counters.rating ? counters.rating ?? "N/A" : "N/A"}
             subtitle={`In Codeforces`}
             icon={Trophy}
             color="text-yellow-500"
@@ -78,7 +105,7 @@ export default function Analytics() {
           />
           <StatCard
             title="Success Rate"
-            value={counters ? Math.round(counters.successRate*100) + '%' ?? "N/A" : "N/A"}
+            value={counters && counters.successRate ? Math.round(counters.successRate*100) + '%' ?? "N/A" : "N/A"}
             subtitle="over all time"
             icon={Award}
             color="text-green-500"
@@ -96,7 +123,7 @@ export default function Analytics() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="box">
             <h2 className="text-lg font-medium text-gray-800 mb-4">Difficulty Distribution</h2>
-            {counters ? (
+            {counters && counters.submissions ? (
                 <Chart
                 options={{
                     chart: {
@@ -136,7 +163,7 @@ export default function Analytics() {
           <div className="bg-white rounded-xl p-6">
             <h2 className="text-lg font-medium text-gray-800 mb-4">Rating Progress</h2>
 
-            {counters ? (
+            {counters && counters.ratingHistory ? (
             <Chart
               options={{
                 dataLabels: { enabled: false },
@@ -232,7 +259,7 @@ export default function Analytics() {
         <div className="bg-white rounded-xl p-6">
           <h2 className="text-lg font-medium text-gray-800 mb-4">Activity Heatmap</h2>
           <div className="overflow-hidden h-[180px] flex flex-col">
-            {counters ? (
+            {counters && counters.calendarHistory ? (
             <CalendarHeatmap
               startDate={new Date("2025-01-01")}
               endDate={new Date("2026-01-01")}

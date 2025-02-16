@@ -19,6 +19,42 @@ import { fetchProfile } from "@/lib/Data";
 import { useEffect, useState } from "react";
 import TaskManager from "@/components/TaskManager";
 
+function abbrNum(number, decPlaces) {
+    // 2 decimal places => 100, 3 => 1000, etc
+    decPlaces = Math.pow(10, decPlaces);
+  
+    // Enumerate number abbreviations
+    var abbrev = ["k", "m", "b", "t"];
+  
+    // Go through the array backwards, so we do the largest first
+    for (var i = abbrev.length - 1; i >= 0; i--) {
+  
+      // Convert array index to "1000", "1000000", etc
+      var size = Math.pow(10, (i + 1) * 3);
+  
+      // If the number is bigger or equal do the abbreviation
+      if (size <= number) {
+        // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+        // This gives us nice rounding to a particular decimal place.
+        number = Math.round(number * decPlaces / size) / decPlaces;
+  
+        // Handle special case where we round up to the next abbreviation
+        if ((number == 1000) && (i < abbrev.length - 1)) {
+          number = 1;
+          i++;
+        }
+  
+        // Add the letter for the abbreviation
+        number += abbrev[i];
+  
+        // We are done... stop
+        break;
+      }
+    }
+  
+    return number;
+  }
+
 export default function () {
   const { currentUser } = useAuth();
   const [profile, setProfile] = useState(null);
@@ -33,11 +69,12 @@ export default function () {
 
       setProfile({
         total:
-          data.stats.codeforces.total_solved + data.stats.leetcode.total_solved,
-        leetcodeLangs: data.stats.leetcode.langs,
-        codeforcesLangs: data.stats.codeforces.langs,
-        streak: data.stats.dailyStreak,
+          (data.stats && data.stats.codeforces ? data.stats.codeforces.total_solved : 0) + (data.stats && data.stats.leetcode ? data.stats.leetcode.total_solved : 0),
+        leetcodeLangs: data.stats && data.stats.leetcode ? data.stats.leetcode.langs : [],
+        codeforcesLangs: data.stats && data.stats.codeforces ? data.stats.codeforces.langs : [],
+        streak: data.stats ? data.stats.daily_streak : 0,
         platforms: platforms,
+        points: data.stats ? data.stats.points : 0,
       });
     });
   }, []);
@@ -149,7 +186,7 @@ export default function () {
                       <Flame />
                     </div>
                     <div className="stats">
-                      <h1>93</h1>
+                      <h1>{profile ? abbrNum(profile.points, 1) : "N/A"}</h1>
                       <h2>Total points earned</h2>
                     </div>
                   </div>
@@ -167,7 +204,7 @@ export default function () {
                       <Clock />
                     </div>
                     <div className="stats">
-                      <h1>{profile ? profile.streak : null}</h1>
+                      <h1>{profile ? profile.streak : "N/A"}</h1>
                       <h2>Consecutive days</h2>
                     </div>
                   </div>

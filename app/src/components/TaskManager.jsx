@@ -13,11 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "./ui/button";
 
 export default function TaskManager() {
-    const [tasks, setTasks] = useState([
-        { id: 1, title: "Task 1", date: "2023-10-01", completed: false },
-        { id: 2, title: "Task 2", date: "2023-10-02", completed: false },
-        { id: 3, title: "Task 3", date: "2023-10-03", completed: false },
-    ]);
+    const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState({ title: "", date: "" });
 
     const addTask = () => {
@@ -51,7 +47,7 @@ export default function TaskManager() {
                             <div key={task.id} className="task">
                                 <Checkbox
                                     checked={task.completed}
-                                    onCheckedChange={() => toggleTask(task.id)}
+                                    onCheckedChange={() => removeTask(task.id)}
                                 />
                                 <div class="labels">
                                     <div class="text">{task.title}</div>

@@ -29,7 +29,7 @@ class APIServer {
             console.log(`Leetcode API server running on Port ${config.api.leetcodeApiPort}`);
 
             // console.log(await codeforces.database.syncUser('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'sarafarajnasardi'));
-            // console.log(await leetcode.database.syncUser('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'Sarafaraj'));
+            // console.log(await leetcode.database.syncUser('users:01JK82TPSF01BA4YMSZ3MMFVJQ', 'theseyan'));
         });
 
         // Setup routes
@@ -37,6 +37,9 @@ class APIServer {
 
         // Connect to database
         await database.init();
+
+        console.log(await API.ml.getStressPrediction("users:01JM62WEH1E5A5FK48S9ZZZ9BH"));
+        // console.log(await API.ml.getLCScore("Sarafaraj"));
 
         // Start the API server
         serve({

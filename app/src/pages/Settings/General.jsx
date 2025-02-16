@@ -18,7 +18,7 @@ export default function() {
             full_name: formData.get("full_name"),
             profile: {
                 bio: formData.get("biography"),
-                sleep_hrs_per_day: Number(formData.get("sleep_hrs")),
+                study_hrs_per_day: Number(formData.get("study_hrs")),
                 cgpa: Number(formData.get("cgpa"))
             }
         };
@@ -34,6 +34,7 @@ export default function() {
 
     useEffect(() => {
         fetchProfile().then((data) => {
+            console.log(data)
             setProfile(curr => {return {...curr, ...data}});
         });
     }, []);
@@ -53,19 +54,19 @@ export default function() {
                     </div>
                     <div>
                         <Label htmlFor="biography">Biography</Label>
-                        <Textarea name="biography" value={profile.profile.bio ? profile.profile.bio : ""} placeholder="Enter a short biography about yourself." onChange={(e) => {
+                        <Textarea name="biography" value={profile ? (profile.profile.bio ? profile.profile.bio : "") : ""} placeholder="Enter a short biography about yourself." onChange={(e) => {
                             setProfile({...profile, profile: {...profile.profile, bio: e.target.value}});
                         }} />
                     </div>
                     <div>
-                        <Label htmlFor="sleep_hrs">Sleep Hours per Day</Label>
-                        <Input name="sleep_hrs" value={profile.profile.sleep_hrs_per_day ? profile.profile.sleep_hrs_per_day : 0} type="number" id="sleep_hrs" placeholder="Sleep hours per day" onChange={(e) => {
-                            setProfile({...profile, profile: {...profile.profile, sleep_hrs_per_day: e.target.value}});
+                        <Label htmlFor="study_hrs">Study Hours per Day</Label>
+                        <Input name="study_hrs" value={profile ? (profile.profile.study_hrs_per_day ? profile.profile.study_hrs_per_day : 0) : 0} type="number" id="study_hrs" placeholder="Study hours per day" onChange={(e) => {
+                            setProfile({...profile, profile: {...profile.profile, study_hrs_per_day: e.target.value}});
                         }} />
                     </div>
                     <div>
                         <Label htmlFor="cgpa">Average CGPA</Label>
-                        <Input name="cgpa" value={profile.profile.cgpa ? profile.profile.cgpa : 0} type="number" id="cgpa" placeholder="Enter your average CGPA" onChange={(e) => {
+                        <Input name="cgpa" value={profile ? (profile.profile.cgpa ? profile.profile.cgpa : 0) : 0} type="number" id="cgpa" placeholder="Enter your average CGPA" onChange={(e) => {
                             setProfile({...profile, profile: {...profile.profile, cgpa: e.target.value}});
                         }} />
                     </div>

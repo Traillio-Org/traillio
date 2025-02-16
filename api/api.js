@@ -18,6 +18,10 @@ const dayjs = require('dayjs');
 const utc = require("dayjs/plugin/utc");
 const {GoogleGenerativeAI, HarmCategory, HarmBlockThreshold} = require("@google/generative-ai");
 const Leetcode = require("./lib/platforms/leetcode");
+const axios = require("axios");
+
+const codeforces = require("./lib/platforms/codeforces");
+const leetcode = require("./lib/platforms/leetcode");
 
 const config = require('./config.json');
 const db = require('./db').db;
@@ -64,6 +68,71 @@ const authCodeCache = new NodeCache({
 const IS_BUN = !(typeof Bun === "undefined");
 
 const API = {
+
+    ml: {
+        getLCScore: async (username) => {
+            const url = config.api.mlApi + '/leetcode';
+            const profile = await leetcode.api.getProfile(username);
+            const submissionCalendar = Object.keys(profile.submissionCalendar);
+
+            const lastWeekTimestamp = (Date.now() / 1000) - (7 * 24 * 60 * 60);
+            let solvedLastWeek = 0;
+            let current = Date.now() / 1000;
+            while (current > lastWeekTimestamp) {
+                if (submissionCalendar.length == 0) break;
+
+                const date = submissionCalendar.pop();
+                current = Number(date);
+                solvedLastWeek++;
+            }
+            
+            const data = {
+                totalSolved: profile.totalSolved,
+                totalSubmissions: profile.totalSubmissions[0].submissions,
+                easy: profile.easySolved,
+                medium: profile.mediumSolved,
+                hard: profile.hardSolved,
+                solvedLastWeek: solvedLastWeek,
+                submissionCalendar: profile.submissionCalendar
+            };
+
+            const response = await axios.post(url, {
+                features: [data.totalSolved, data.totalSubmissions, data.easy, data.medium, data.hard, data.solvedLastWeek]
+            });
+
+            return response.data;
+        },
+
+        getStressPrediction: async (id) => {
+            const url = config.api.mlApi + '/stress';
+            const profile = await API.accounts.fetchProfile(id);
+
+            if (!profile.profile.cgpa || !profile.profile.study_hrs_per_day) {
+                throw new Errors.BadRequestError("Insufficient profile data to predict stress");
+            }
+
+            const response = await axios.post(url, {
+                features: [profile.profile.study_hrs_per_day, 6, profile.profile.cgpa]
+            });
+
+            return response.data;
+        },
+
+        // TODO
+        getCFScore: async (easy, hard, medium, rating, solvedLastWeek) => {
+            // const url = config.api.mlApi + '/cf';
+
+            // await codeforces.api.getSubmissions
+
+            // const data = {
+            //     easy: easy,
+            //     hard: hard,
+            //     medium: medium,
+            //     rating: rating,
+            //     solvedLastWeek: solvedLastWeek
+            // };
+        }
+    },
 
     /**
      * LLM related API
@@ -678,7 +747,7 @@ const API = {
             // Insert record to database
             let insertOp;
             try {
-                insertOp = await db.query(`CREATE users SET id = $id, authentication = $authentication, platforms = $platforms, full_name = $full_name, email = $email, pfp = $pfp, joined_at = $joinedAt, disabled = false`, {
+                insertOp = await db.query(`CREATE users SET id = $id, authentication = $authentication, platforms = $platforms, full_name = $full_name, email = $email, pfp = $pfp, joined_at = $joinedAt, disabled = false, profile = $profile, stats = $stats`, {
                     id: id,
                     platforms: {
                         leetcode: null,
@@ -694,8 +763,12 @@ const API = {
                     joinedAt: Math.floor((new Date()).getTime() / 1000),
                     profile: {
                         bio: null,
-                        sleep_hrs_per_day: null,
+                        study_hrs_per_day: null,
                         cgpa: null
+                    },
+                    stats: {
+                        points: 0,
+                        daily_streak: 1
                     }
                 });
 

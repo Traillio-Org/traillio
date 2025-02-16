@@ -72,14 +72,13 @@ module.exports = {
             }
         };
 
-        console.log(update);
-
         try {
             await db.query(`UPDATE $id MERGE $obj;`, {
                 id: new StringRecordId(id),
                 obj: update
             });
         } catch (e) {
+            // console.error(e.message);
             throw e;
         }
     },
