@@ -38,7 +38,7 @@ class APIServer {
         // Connect to database
         await database.init();
 
-        console.log(await API.ml.getStressPrediction("users:01JM62WEH1E5A5FK48S9ZZZ9BH"));
+        // console.log(await API.ml.getStressPrediction("users:01JM62WEH1E5A5FK48S9ZZZ9BH"));
         // console.log(await API.ml.getLCScore("Sarafaraj"));
 
         // Start the API server

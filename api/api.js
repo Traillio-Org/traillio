@@ -88,7 +88,7 @@ const API = {
             
             const data = {
                 totalSolved: profile.totalSolved,
-                totalSubmissions: profile.totalSubmissions[0].submissions,
+                totalSubmissions: profile.totalSolved / profile.totalSubmissions[0].submissions,
                 easy: profile.easySolved,
                 medium: profile.mediumSolved,
                 hard: profile.hardSolved,

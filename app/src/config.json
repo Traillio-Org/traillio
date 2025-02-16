@@ -1,7 +1,7 @@
 {
     "production": {
         "api": {
-            "host": "http://localhost:8080",
+            "host": "https://traillio-api.seyan.co",
             "newsApi": "https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=458305250025469cb098265a6faa8215"
         },
         "auth": {
