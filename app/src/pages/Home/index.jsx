@@ -74,7 +74,8 @@ export default function () {
         codeforcesLangs: data.stats && data.stats.codeforces ? data.stats.codeforces.langs : [],
         streak: data.stats ? data.stats.daily_streak : 0,
         platforms: platforms,
-        points: data.stats ? data.stats.points : 0,
+        lc_points: data.stats ? data.stats.lc_points : 0,
+        cf_points: data.stats ? data.stats.cf_points : 0,
       });
     });
   }, []);
@@ -186,7 +187,7 @@ export default function () {
                       <Flame />
                     </div>
                     <div className="stats">
-                      <h1>{profile ? abbrNum(profile.points, 1) : "N/A"}</h1>
+                      <h1>{profile ? abbrNum(Math.trunc((profile.cf_points + profile.lc_points) / 2), 1) : "N/A"}</h1>
                       <h2>Total points earned</h2>
                     </div>
                   </div>

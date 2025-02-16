@@ -32,7 +32,9 @@ export default function Analytics() {
                             successRate: data.stats.leetcode.success_rate,
                             submissions: data.stats.leetcode.submissions,
                             leetcodeSolved: data.stats.leetcode.total_solved,
-                            calendarHistory: calendarHistory
+                            calendarHistory: calendarHistory,
+                            streak: data.stats.daily_streak,
+                            stress: data.stats.stress
                         }
                     }
                 })
@@ -52,6 +54,8 @@ export default function Analytics() {
                             maxRating: data.stats.codeforces.max_rating,
                             ratingHistory: ratingHistory,
                             problemsSolved: data.stats.codeforces.total_solved,
+                            streak: data.stats.daily_streak,
+                            stress: data.stats.stress
                         }
                     }
                 });
@@ -62,12 +66,18 @@ export default function Analytics() {
                 setCounters(curr => {return {
                     ...curr,
                     ...{
-                        problemsSolved: data.stats.codeforces.total_solved + data.stats.leetcode.total_solved
+                        problemsSolved: data.stats.codeforces.total_solved + data.stats.leetcode.total_solved,
+                        streak: data.stats.daily_streak,
+                        stress: data.stats.stress
                     }
                 }})
             }
         });
     }, []);
+
+    useEffect(()=>{
+        console.log(counters)
+    }, [counters])
 
   const StatCard = ({ title, value, subtitle, icon: Icon, color }) => (
     <div className="box">
@@ -112,8 +122,8 @@ export default function Analytics() {
           />
           <StatCard
             title="Learning Streak"
-            value="15 days"
-            subtitle="Personal best: 28 days"
+            value={counters ? counters.streak + " days" : "N/A"}
+            subtitle="Maintain a perfect streak"
             icon={BookOpen}
             color="text-purple-500"
           />
@@ -211,44 +221,46 @@ export default function Analytics() {
 
           <div className="bg-white rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-medium text-gray-800">Mental Load</h2>
+              <h2 className="text-lg font-medium text-gray-800">Stress</h2>
               <Brain className="w-6 h-6 text-purple-500" />
             </div>
-            <Chart
-              options={{
-                chart: {
-                  toolbar: { show: false },
-                  background: 'transparent'
-                },
-                colors: ["#8b5cf6"],
-                plotOptions: {
-                  radialBar: {
-                    hollow: {
-                      size: "70%"
+            {counters && counters.stress ? (
+                <Chart
+                options={{
+                    chart: {
+                    toolbar: { show: false },
+                    background: 'transparent'
                     },
-                    track: {
-                      background: "#e2e8f0"
-                    },
-                    dataLabels: {
-                      name: {
-                        offsetY: -10,
-                        color: "#64748b",
-                        fontSize: "14px"
-                      },
-                      value: {
-                        color: "#8b5cf6",
-                        fontSize: "24px",
-                        fontWeight: "600"
-                      }
+                    colors: ["#8b5cf6"],
+                    plotOptions: {
+                    radialBar: {
+                        hollow: {
+                        size: "70%"
+                        },
+                        track: {
+                        background: "#e2e8f0"
+                        },
+                        dataLabels: {
+                        name: {
+                            offsetY: -10,
+                            color: "#64748b",
+                            fontSize: "14px"
+                        },
+                        value: {
+                            color: "#8b5cf6",
+                            fontSize: "24px",
+                            fontWeight: "600"
+                        }
+                        }
                     }
-                  }
-                },
-                labels: ["Mental Load"]
-              }}
-              type="radialBar"
-              series={[65]}
-              height={300}
-            />
+                    },
+                    labels: ["Stress"]
+                }}
+                type="radialBar"
+                series={[counters.stress == -1 ? 99 : (counters.stress == 0 ? 66 : 33)]}
+                height={300}
+                />
+                ) : null}
             <div className="text-center mt-4 text-sm text-gray-600">
               Based on recent activity patterns
             </div>

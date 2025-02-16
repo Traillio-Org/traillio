@@ -100,7 +100,46 @@ const API = {
                 features: [data.totalSolved, data.totalSubmissions, data.easy, data.medium, data.hard, data.solvedLastWeek]
             });
 
-            return response.data;
+            return response.data.prediction[0][0];
+        },
+
+        getCFScore: async (username) => {
+            const url = config.api.mlApi + '/cf';
+            const profile = await codeforces.api.getProfile(username);
+            const submissions = await codeforces.api.getSubmissions(username, 'OK');
+            let rating;
+
+            if (!'rating' in profile) rating = profile.rating;
+            else rating = 361;
+
+            let easy = 0;
+            let medium = 0;
+            let hard = 0;
+
+            let lastWeekSolved = 0;
+            const lastWeekTimestamp = (Date.now() / 1000) - (7 * 24 * 60 * 60);
+
+            submissions.forEach(submission => {
+                if (submission.creationTimeSeconds >= lastWeekTimestamp) {
+                    lastWeekSolved++;
+                }
+
+                if (!'rating' in submission.problem) return;
+
+                if (submission.problem.rating > 800 && submission.problem.rating < 1000) {
+                    easy++;
+                } else if (submission.problem.rating >= 1000 && submission.problem.rating < 1400) {
+                    medium++;
+                } else if (submission.problem.rating >= 1400) {
+                    hard++;
+                }
+            });
+
+            const response = await axios.post(url, {
+                features: [easy, hard, medium, rating, lastWeekSolved]
+            });
+
+            return response.data.prediction[0][0];
         },
 
         getStressPrediction: async (id) => {
@@ -112,26 +151,11 @@ const API = {
             }
 
             const response = await axios.post(url, {
-                features: [profile.profile.study_hrs_per_day, 6, profile.profile.cgpa]
+                features: [profile.profile.study_hrs_per_day, 6, profile.profile.cgpa / 2.632]
             });
 
-            return response.data;
+            return response.data.prediction[0];
         },
-
-        // TODO
-        getCFScore: async (easy, hard, medium, rating, solvedLastWeek) => {
-            // const url = config.api.mlApi + '/cf';
-
-            // await codeforces.api.getSubmissions
-
-            // const data = {
-            //     easy: easy,
-            //     hard: hard,
-            //     medium: medium,
-            //     rating: rating,
-            //     solvedLastWeek: solvedLastWeek
-            // };
-        }
     },
 
     /**
@@ -767,7 +791,9 @@ const API = {
                         cgpa: null
                     },
                     stats: {
-                        points: 0,
+                        stress: null,
+                        lc_points: 0,
+                        cf_points: 0,
                         daily_streak: 1
                     }
                 });
